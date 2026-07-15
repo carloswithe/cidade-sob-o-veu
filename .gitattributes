@@ -1,0 +1,6 @@
+# Os pacotes de compêndio (LevelDB) contêm arquivos binários/sensíveis a byte
+# (CURRENT, LOCK, MANIFEST-*, *.ldb, *.log) — nunca deixe o Git normalizar
+# quebras de linha neles, ou o Foundry falha em abrir o banco.
+packs/**/* -text -diff
+
+* text=auto eol=lf
