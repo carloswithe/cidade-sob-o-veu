@@ -8,7 +8,7 @@
   "readme": "README.md",
   "bugs": "https://github.com/carloswithe/cidade-sob-o-veu/issues",
   "changelog": "CHANGELOG.md",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "compatibility": { "minimum": 12, "verified": "13" },
   "esmodules": ["module/cidade-sob-o-veu.mjs"],
   "styles": ["styles/cidade-sob-o-veu.css"],
@@ -27,5 +27,5 @@
   "gridDistance": 1,
   "gridUnits": "m",
   "manifest": "https://raw.githubusercontent.com/carloswithe/cidade-sob-o-veu/main/system.json",
-  "download": "https://github.com/carloswithe/cidade-sob-o-veu/releases/download/v0.1.4/cidade-sob-o-veu-0.1.4.zip"
+  "download": "https://github.com/carloswithe/cidade-sob-o-veu/releases/download/v0.1.5/cidade-sob-o-veu-0.1.5.zip"
 }

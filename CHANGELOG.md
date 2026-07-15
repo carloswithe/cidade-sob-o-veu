@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis deste sistema serão documentadas aqui.
 
+## [0.1.5] — 2026-07-15
+
+### Corrigido
+- O botão "Rolar" da zona fixa (ficha de Personagem) aparecia esmagado no Foundry — o `align-items: stretch` do flex container não vencia as regras de `button` do próprio Foundry, então o botão ficava só alguns pixels de altura em vez de acompanhar o retrato. Trocado por altura explícita (120px no Foundry, 132px na ficha standalone).
+
 ## [0.1.4] — 2026-07-15
 
 ### Alterado
