@@ -1,0 +1,59 @@
+<div class="cv-chat-rolagem">
+  {{#if flavor}}<div class="cv-chat-flavor">{{flavor}}</div>{{/if}}
+
+  {{#if (or tagsPositivas.length tagsNegativas.length)}}
+  <div class="cv-chat-tags">
+    {{#each tagsPositivas}}<span class="cv-chip cv-chip-pos"><span class="s">+</span> {{this}}</span>{{/each}}
+    {{#each tagsNegativas}}<span class="cv-chip cv-chip-neg"><span class="s">−</span> {{this}}</span>{{/each}}
+  </div>
+  {{/if}}
+
+  <div class="cv-dado-pool">
+    <div class="cv-dado-coluna">
+      <span class="cv-dado-label">Ação</span>
+      <div class="cv-dado-linha">
+        {{#each acaoValores}}
+        <span class="cv-dado cv-dado-acao {{#if (lookup ../resolucao.anuladoMask @index)}}anulado{{/if}}">{{this}}</span>
+        {{/each}}
+      </div>
+    </div>
+    {{#if riscoValores.length}}
+    <div class="cv-dado-coluna">
+      <span class="cv-dado-label">Risco</span>
+      <div class="cv-dado-linha">
+        {{#each riscoValores}}
+        <span class="cv-dado cv-dado-risco">{{this}}</span>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="cv-resultado cv-resultado-{{resolucao.resultadoChave}}">
+    <span class="cv-resultado-nome">{{resolucao.resultado}}</span>
+    {{#if resolucao.ampliacoes}}<span class="cv-ampliacoes">+{{resolucao.ampliacoes}} Ampliação{{#if (gt resolucao.ampliacoes 1)}}ões{{/if}}</span>{{/if}}
+  </div>
+
+  {{#if dano}}
+  <div class="cv-dano-linha">
+    <span class="cv-dano-texto">
+      {{#if (eq dano.modo "sofrido")}}Dano sofrido{{else}}Dano causado{{/if}}
+      ({{dano.categoriaLabel}}): <strong>{{dano.pontos}}</strong>
+    </span>
+    {{#if actorId}}
+    <button type="button" class="cv-btn-aplicar-dano" data-pontos="{{dano.pontos}}" data-modo="{{dano.modo}}">
+      Aplicar Dano
+    </button>
+    {{/if}}
+  </div>
+  {{/if}}
+
+  {{#if tokenDisponivel}}
+  <button type="button" class="cv-btn-token-sorte" data-pool="{{pool}}">
+    ◈ Usar Token de Sorte (±1 num dado)
+  </button>
+  {{/if}}
+  {{#if tokenUsado}}
+  <div class="cv-token-usado">◈ Token de Sorte usado nesta rolagem.</div>
+  {{/if}}
+</div>

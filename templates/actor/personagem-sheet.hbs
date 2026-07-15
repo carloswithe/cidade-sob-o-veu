@@ -1,0 +1,240 @@
+<div class="cv-sheet cv-personagem">
+
+  <header class="cv-header">
+    <img class="cv-img" src="{{actor.img}}" data-edit="img" alt="{{actor.name}}">
+    <div class="cv-header-main">
+      <input class="cv-nome" type="text" name="name" value="{{actor.name}}" placeholder="Nome do personagem">
+      <div class="cv-sub">Fantasia Urbana Sobrenatural · A Cidade Sob o Véu</div>
+      <div class="cv-grid cv-g3">
+        <div><label class="cv-lab">Jogador(a)</label><input type="text" name="system.jogador" value="{{system.jogador}}"></div>
+        <div><label class="cv-lab">Conceito</label><input type="text" name="system.conceito" value="{{system.conceito}}" placeholder="Ex.: legista que vê demais"></div>
+        <div><label class="cv-lab">Nível</label>
+          <select name="system.nivel">
+            {{#each niveis as |n|}}<option value="{{n}}" {{selecionado n ../system.nivel}}>Nível {{n}}</option>{{/each}}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="cv-toolbar">
+      <button type="button" class="cv-btn-rolar-livre" data-action="rolar-livre">🎲 Rolar</button>
+    </div>
+  </header>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Identidade</h2><span class="cv-ref">Tags em jogo: +{{totalPositivas}} / −{{totalNegativas}}</span></div>
+    <div class="cv-corpo">
+      <div class="cv-grid cv-g2c">
+        <div>
+          <label class="cv-lab">XP para o próximo nível <span class="cv-badge">{{system.xp.atual}}/10</span></label>
+          <div class="cv-xpbar">
+            {{#each xpPips as |i|}}
+            <div class="cv-xp-pip {{#if (lt i ../system.xp.atual)}}on{{/if}}" data-action="set-xp" data-index="{{i}}"></div>
+            {{/each}}
+          </div>
+        </div>
+        <div>
+          <label class="cv-lab">Token de Sorte</label>
+          <div class="cv-token {{#if system.tokenSorte}}on{{/if}}" data-action="toggle-token" title="Regra opcional (Cap. 1): ajusta 1 dado em ±1">
+            <span class="cv-los-mini"></span>
+            <span class="cv-tk-txt">{{#if system.tokenSorte}}Disponível{{else}}Gasto — clique para renovar{{/if}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-field" style="margin-top:14px;">
+        <label class="cv-lab">Estilo de Vida (Cap. 7)
+          <button type="button" class="cv-mini" data-action="rolar-estilo-vida">🎲 1d20</button>
+        </label>
+        <div class="cv-vida-grid">
+          {{#each estilosDeVida as |ev|}}
+          <div class="cv-vida-opt {{#if (eq ev ../system.estiloDeVida)}}on{{/if}}" data-action="set-estilo-vida" data-valor="{{ev}}">{{ev}}</div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Trilha de Ferimentos</h2><span class="cv-ref">Clique nos losangos · Cap. 8</span></div>
+    <div class="cv-corpo">
+      <div class="cv-fer">
+        {{#each ferimentosInfo as |f i|}}
+        <div class="cv-fer-item {{#if (gt ../system.vida.pontos i)}}on{{/if}}" data-action="toggle-ferimento" data-index="{{i}}">
+          <div class="cv-los"></div>
+          <div class="cv-fer-nome">{{f.nivel}}</div>
+          <div class="cv-fer-ef">{{f.efeito}}</div>
+        </div>
+        {{/each}}
+      </div>
+      <div class="cv-lista-ferimentos">
+        {{#each system.vida.ferimentos as |fer i|}}
+        <div class="cv-chip cv-chip-neg">
+          <span class="s">−</span> {{fer.nome}} <em>({{fer.nivel}})</em>
+          <button type="button" class="cv-mini" data-action="recuperar-ferimento" data-index="{{i}}" title="Recuperar este ferimento">✓ recuperar</button>
+        </div>
+        {{else}}
+        <p class="cv-empty">Sem ferimentos.</p>
+        {{/each}}
+      </div>
+      <div class="cv-grid cv-g2c" style="margin-top:10px;">
+        <div><label class="cv-lab">Proteção em uso (−1 dano se adequada)</label><input type="text" name="system.protecao" value="{{system.protecao}}" placeholder="Ex.: colete balístico"></div>
+      </div>
+    </div>
+  </section>
+
+  {{!-- Bloco 1 — Características --}}
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>① Características</h2><span class="cv-ref">Cap. 3 · +1 Qualidade a cada nível par</span></div>
+    <div class="cv-corpo">
+      <div class="cv-hint">Qualidades ({{qualidades.length}})</div>
+      {{#each qualidades as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="pos"}}{{/each}}
+      <div class="cv-add-row">
+        <select name="pick-qualidade">
+          <option value="">— escolha —</option>
+          {{#each caracteristicasPositivas as |o|}}<option value="{{o.grupo}}|{{o.nome}}">{{o.grupo}} · {{o.nome}}</option>{{/each}}
+        </select>
+        <button type="button" class="cv-mini" data-action="add-qualidade">+ adicionar</button>
+        <button type="button" class="cv-mini" data-action="rolar-qualidade">🎲 1d20</button>
+      </div>
+
+      <div class="cv-hint" style="margin-top:14px;">Defeitos · novos podem vir da quase morte (Cap. 8)</div>
+      {{#each defeitos as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="neg"}}{{/each}}
+      <div class="cv-add-row">
+        <select name="pick-defeito">
+          <option value="">— escolha —</option>
+          {{#each caracteristicasNegativas as |o|}}<option value="{{o.grupo}}|{{o.nome}}">{{o.grupo}} · {{o.nome}}</option>{{/each}}
+        </select>
+        <button type="button" class="cv-mini" data-action="add-defeito">+ adicionar</button>
+        <button type="button" class="cv-mini" data-action="rolar-defeito">🎲 1d20</button>
+      </div>
+    </div>
+  </section>
+
+  {{!-- Bloco 2 — Ancestralidade --}}
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>② Ancestralidade</h2><span class="cv-ref">Cap. 4 · definida só na criação</span></div>
+    <div class="cv-corpo">
+      <div class="cv-grid cv-g2c">
+        <div>
+          <label class="cv-lab">Ancestralidade atual: <strong>{{system.ancestralidadeNome}}</strong></label>
+          <div class="cv-add-row">
+            <select name="pick-ancestralidade">
+              <option value="">— escolha —</option>
+              {{#each ancestralidadeIndex as |e|}}<option value="{{e._id}}" {{#if (eq e.name ../system.ancestralidadeNome)}}selected{{/if}}>{{e.name}}</option>{{/each}}
+            </select>
+            <button type="button" class="cv-mini" data-action="aplicar-ancestralidade">Aplicar</button>
+            <button type="button" class="cv-mini" data-action="rolar-ancestralidade">🎲 1d8</button>
+          </div>
+        </div>
+        <div><label class="cv-lab">Definições com o mestre</label><input type="text" name="system.ancestralidadeNotas" value="{{system.ancestralidadeNotas}}"></div>
+      </div>
+      <div class="cv-tags-grid" style="margin-top:12px;">
+        {{#each virtudes as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="pos"}}{{/each}}
+        {{#each vulnerabilidades as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="neg"}}{{/each}}
+      </div>
+    </div>
+  </section>
+
+  {{!-- Bloco 3 — Arquétipo --}}
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>③ Arquétipo</h2><span class="cv-ref">Cap. 5 · +1 Especialidade e +1 Vício por nível</span></div>
+    <div class="cv-corpo">
+      <label class="cv-lab">Arquétipo atual: <strong>{{system.arquetipoNome}}</strong></label>
+      <div class="cv-add-row">
+        <select name="pick-arquetipo">
+          <option value="">— escolha —</option>
+          {{#each arquetipoIndex as |e|}}<option value="{{e._id}}" {{#if (eq e.name ../system.arquetipoNome)}}selected{{/if}}>{{e.name}}</option>{{/each}}
+        </select>
+        <button type="button" class="cv-mini" data-action="aplicar-arquetipo">Aplicar</button>
+        <button type="button" class="cv-mini" data-action="rolar-arquetipo">🎲 1d10</button>
+      </div>
+
+      <div class="cv-hint" style="margin-top:14px;">Especialidades ({{especialidades.length}} / nível {{system.nivel}})</div>
+      {{#each especialidades as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="pos"}}{{/each}}
+      {{#if arquetipoOptions}}
+      <div class="cv-add-row">
+        <select name="pick-especialidade">
+          {{#each arquetipoOptions.especialidades as |o|}}<option value="{{o.i}}">{{o.nome}}</option>{{/each}}
+        </select>
+        <button type="button" class="cv-mini" data-action="add-especialidade">+ adicionar</button>
+        <button type="button" class="cv-mini" data-action="add-especialidade" data-aleatoria="true">🎲 1d20</button>
+      </div>
+      {{/if}}
+
+      <div class="cv-hint" style="margin-top:14px;">Vícios e Limitações ({{vicios.length}} / nível {{system.nivel}})</div>
+      {{#each vicios as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="neg"}}{{/each}}
+      {{#if arquetipoOptions}}
+      <div class="cv-add-row">
+        <select name="pick-vicio">
+          {{#each arquetipoOptions.vicios as |o|}}<option value="{{o.i}}">{{o.nome}}</option>{{/each}}
+        </select>
+        <button type="button" class="cv-mini" data-action="add-vicio">+ adicionar</button>
+        <button type="button" class="cv-mini" data-action="add-vicio" data-aleatoria="true">🎲 1d20</button>
+      </div>
+      {{/if}}
+    </div>
+  </section>
+
+  {{!-- Bloco 4 — Antecedente --}}
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>④ Antecedente</h2><span class="cv-ref">Cap. 2 e 9 · + ganhos narrativos (Cap. 6)</span></div>
+    <div class="cv-corpo">
+      <label class="cv-lab">Profissão atual: <strong>{{system.profissaoNome}}</strong></label>
+      <div class="cv-add-row">
+        <select name="pick-profissao">
+          <option value="">— escolha —</option>
+          {{#each profissaoIndex as |e|}}<option value="{{e._id}}" {{#if (eq e.name ../system.profissaoNome)}}selected{{/if}}>{{e.name}}</option>{{/each}}
+        </select>
+        <button type="button" class="cv-mini" data-action="aplicar-profissao">Aplicar</button>
+        <button type="button" class="cv-mini" data-action="rolar-profissao">🎲 1d100</button>
+      </div>
+
+      <div class="cv-hint" style="margin-top:14px;">Aprendizados</div>
+      {{#each aprendizados as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="pos"}}{{/each}}
+      <button type="button" class="cv-mini" data-action="add-aprendizado">+ adicionar aprendizado narrativo</button>
+
+      <div class="cv-hint" style="margin-top:14px;">Traumas</div>
+      {{#each traumas as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="neg"}}{{/each}}
+      <div class="cv-add-row">
+        <select name="pick-trauma">
+          <option value="">— escolha —</option>
+          {{#each traumaIndex as |e|}}<option value="{{e._id}}">{{e.name}}</option>{{/each}}
+        </select>
+        <button type="button" class="cv-mini" data-action="aplicar-trauma">Aplicar</button>
+        <button type="button" class="cv-mini" data-action="rolar-trauma">🎲 1d100</button>
+      </div>
+      <button type="button" class="cv-mini" data-action="add-trauma-narrativo">+ adicionar trauma narrativo</button>
+    </div>
+  </section>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Itens Mágicos ou Aprimorados</h2><span class="cv-ref">Cap. 7 · nível = nº de Dádivas</span></div>
+    <div class="cv-corpo">
+      {{#each itensMagicos as |it|}}
+      <div class="cv-item-card" data-item-id="{{it.id}}">
+        <div class="cv-item-top">
+          <img src="{{it.img}}" class="cv-item-img" data-action="edit-item">
+          <span class="cv-item-nome" data-action="edit-item">{{it.name}}</span>
+          <span class="cv-badge">Nível {{it.system.nivel}}</span>
+          <button type="button" class="cv-mini" data-action="edit-item">✎ editar</button>
+          <button type="button" class="cv-mini" data-action="delete-item">✕ remover</button>
+        </div>
+      </div>
+      {{else}}
+      <p class="cv-empty">Nenhum item mágico ou aprimorado.</p>
+      {{/each}}
+      <button type="button" class="cv-mini" data-action="add-mitem">+ adicionar item</button>
+    </div>
+  </section>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Equipamento, Bens &amp; Notas</h2><span class="cv-ref">Coerente com o Estilo de Vida · a cidade lembra</span></div>
+    <div class="cv-corpo cv-grid cv-g2c">
+      <div><label class="cv-lab">Equipamento &amp; bens</label><textarea name="system.equipamento" rows="4">{{system.equipamento}}</textarea></div>
+      <div><label class="cv-lab">Aliados, inimigos &amp; notas</label><textarea name="system.notas" rows="4">{{system.notas}}</textarea></div>
+    </div>
+  </section>
+
+  <div class="cv-fio"></div>
+  <p class="cv-hint">◈ A regra de ouro: toda Tag vale em algumas cenas — não em todas. Tags negativas não são punição: são convites de cena.</p>
+</div>

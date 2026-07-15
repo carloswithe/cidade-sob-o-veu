@@ -1,0 +1,85 @@
+<div class="cv-sheet cv-lendario">
+
+  <header class="cv-header">
+    <img class="cv-img" src="{{actor.img}}" data-edit="img" alt="{{actor.name}}">
+    <div class="cv-header-main">
+      <input class="cv-nome" type="text" name="name" value="{{actor.name}}" placeholder="Nome do Lendário">
+      <div class="cv-sub">Lendário · Cap. 12 · acima do Colosso</div>
+      <div class="cv-grid cv-g2c">
+        <div><label class="cv-lab">Natureza</label><input type="text" name="system.natureza" value="{{system.natureza}}"></div>
+        <div><label class="cv-lab">Presença base (dados de Risco automáticos)</label><input type="number" name="system.presenca" value="{{system.presenca}}" min="0" max="3"></div>
+      </div>
+    </div>
+    <div class="cv-toolbar">
+      <button type="button" class="cv-btn-rolar-livre" data-action="rolar-livre">🎲 Rolar</button>
+    </div>
+  </header>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Descrição</h2></div>
+    <div class="cv-corpo"><textarea name="system.descricao" rows="3">{{system.descricao}}</textarea></div>
+  </section>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Fases</h2><span class="cv-ref">Limiar: máx. 2 de dano/rolagem, salvo Fraqueza explorada</span></div>
+    <div class="cv-corpo">
+      {{#each fases as |f|}}
+      <div class="cv-fase-card {{#if f.ativa}}cv-fase-ativa{{/if}}" data-index="{{f.i}}">
+        <div class="cv-fase-top">
+          <button type="button" class="cv-mini" data-action="set-fase-atual" data-index="{{f.i}}" title="Marcar como Fase atual">{{#if f.ativa}}★ Fase Atual{{else}}☆ Ativar{{/if}}</button>
+          <input type="text" name="system.fases.{{f.i}}.nome" value="{{f.nome}}" class="cv-fase-nome">
+          <select name="system.fases.{{f.i}}.categoriaArma">
+            {{#each ../categorias as |c|}}<option value="{{c}}" {{selecionado c f.categoriaArma}}>Cat. {{c}}</option>{{/each}}
+          </select>
+          <label class="cv-inline-check"><input type="checkbox" name="system.fases.{{f.i}}.presencaExtra" {{marcado f.presencaExtra}}> Presença +2 nesta fase</label>
+          <button type="button" class="cv-mini" data-action="delete-fase" data-index="{{f.i}}">✕</button>
+        </div>
+        <div class="cv-grid cv-g2c">
+          <div><label class="cv-lab">Forma</label><input type="text" name="system.fases.{{f.i}}.forma" value="{{f.forma}}"></div>
+          <div><label class="cv-lab">Proteção</label><input type="text" name="system.fases.{{f.i}}.protecao" value="{{f.protecao}}"></div>
+        </div>
+        <div class="cv-field"><label class="cv-lab">Tags (referência rápida)</label><input type="text" name="system.fases.{{f.i}}.tags" value="{{f.tags}}"></div>
+        <div class="cv-field">
+          <label class="cv-lab">Vitalidade ({{f.vitalidade.atual}}/{{f.vitalidade.max}}) <input type="number" class="cv-inline-num" name="system.fases.{{f.i}}.vitalidade.max" value="{{f.vitalidade.max}}" min="1" max="8"></label>
+          <div class="cv-fer cv-fer-adversario">
+            {{#each f.pips as |p|}}
+            <div class="cv-vitalidade-pip {{#if (gt f.vitalidade.atual p)}}on{{/if}}" data-action="toggle-vitalidade-fase" data-fase-index="{{f.i}}" data-pip-index="{{p}}"></div>
+            {{/each}}
+          </div>
+        </div>
+        <div class="cv-field"><label class="cv-lab">Transição (o que muda quando esta Fase zera)</label><textarea name="system.fases.{{f.i}}.transicao" rows="2">{{f.transicao}}</textarea></div>
+      </div>
+      {{/each}}
+      <button type="button" class="cv-mini" data-action="add-fase">+ adicionar Fase</button>
+    </div>
+  </section>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Fraquezas</h2><span class="cv-ref">Destravam dano integral, ignorando o Limiar</span></div>
+    <div class="cv-corpo">
+      {{#each system.fraquezas as |fr i|}}
+      <div class="cv-add-row">
+        <input type="text" name="system.fraquezas.{{i}}.nome" value="{{fr.nome}}" placeholder="Nome da Fraqueza">
+        <input type="text" name="system.fraquezas.{{i}}.descricao" value="{{fr.descricao}}" placeholder="Como é explorada">
+        <button type="button" class="cv-mini" data-action="delete-fraqueza" data-index="{{i}}">✕</button>
+      </div>
+      {{/each}}
+      <button type="button" class="cv-mini" data-action="add-fraqueza">+ adicionar Fraqueza</button>
+    </div>
+  </section>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Agenda</h2><span class="cv-ref">Retaliação: Falha Crítica do grupo = 1 Avanço</span></div>
+    <div class="cv-corpo">
+      {{#each system.agenda as |av i|}}
+      <div class="cv-add-row">
+        <input type="checkbox" data-action="toggle-avanco" data-index="{{i}}" {{marcado av.completo}}>
+        <input type="text" name="system.agenda.{{i}}.texto" value="{{av.texto}}" placeholder="Avanço da Agenda" class="{{#if av.completo}}cv-riscado{{/if}}">
+        <button type="button" class="cv-mini" data-action="delete-avanco" data-index="{{i}}">✕</button>
+      </div>
+      {{/each}}
+      <button type="button" class="cv-mini" data-action="add-avanco">+ adicionar Avanço</button>
+      <div class="cv-field" style="margin-top:10px;"><label class="cv-lab">Derrota</label><textarea name="system.derrota" rows="3">{{system.derrota}}</textarea></div>
+    </div>
+  </section>
+</div>

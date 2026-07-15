@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+/* ============ Tokens — diretrizes-de-design.md ============ */
+.cidade-sob-o-veu {
+  --cv-noite: #0B0A10;
+  --cv-concreto: #1C1824;
+  --cv-concreto2: #252031;
+  --cv-nevoa: #8E8A99;
+  --cv-veu: #F6F4FA;
+  --cv-ritual: #5B21B6;
+  --cv-neon: #8B5CF6;
+  --cv-lilas: #C9B8F0;
+}
+
+/* ============ Janela do Foundry ============ */
+.cidade-sob-o-veu.sheet {
+  --color-text-primary: var(--cv-veu);
+  background: var(--cv-noite);
+  color: var(--cv-veu);
+}
+.cidade-sob-o-veu.sheet .window-content {
+  background: var(--cv-noite);
+  background-image: radial-gradient(ellipse 60% 40% at 70% -10%, rgba(139, 92, 246, .14), transparent 60%);
+  color: var(--cv-veu);
+  font-family: 'Lora', serif;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.cv-sheet { padding: 16px 18px 40px; max-width: 100%; }
+.cv-sheet * { box-sizing: border-box; }
+.cv-sheet .mono { font-family: 'Space Mono', monospace; }
+
+/* ============ Fio do Véu ============ */
+.cv-fio {
+  height: 2px; margin: 22px 0 18px;
+  background:
+    linear-gradient(90deg, var(--cv-ritual), var(--cv-neon) 70%, transparent 70%),
+    repeating-linear-gradient(90deg, var(--cv-neon) 0 5px, transparent 5px 12px);
+  background-size: 70% 2px, 100% 2px;
+  background-repeat: no-repeat, no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, #000 60%, transparent 99%);
+  mask-image: linear-gradient(90deg, #000 60%, transparent 99%);
+}
+
+/* ============ Cabeçalho ============ */
+.cv-header {
+  display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap;
+  border-bottom: 2px solid var(--cv-ritual); padding-bottom: 14px; margin-bottom: 8px;
+}
+.cv-img { width: 72px; height: 72px; object-fit: cover; border: 1px solid var(--cv-neon); flex: none; cursor: pointer; }
+.cv-header-main { flex: 1; min-width: 240px; }
+.cv-nome {
+  font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: .05em;
+  text-transform: uppercase; background: transparent; border: none; color: var(--cv-veu); width: 100%; padding: 2px 0;
+}
+.cv-nome:focus { outline: none; border-bottom: 1px solid var(--cv-neon); }
+.cv-sub { font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: .24em; color: var(--cv-neon); text-transform: uppercase; margin: 4px 0 10px; }
+.cv-toolbar { display: flex; gap: 8px; flex: none; }
+
+/* ============ Blocos ============ */
+.cv-bloco { border: 1px solid #38304a; margin-top: 16px; background: rgba(28, 24, 36, .55); }
+.cv-tit { background: var(--cv-ritual); padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cv-tit h2 { font-family: 'Unbounded', sans-serif; font-weight: 400; font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; margin: 0; }
+.cv-ref { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--cv-lilas); text-transform: uppercase; }
+.cv-corpo { padding: 14px 14px 16px; }
+.cv-hint { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .04em; color: var(--cv-nevoa); text-transform: uppercase; margin: 2px 0 8px; }
+.cv-empty { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--cv-nevoa); }
+.cv-badge { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--cv-lilas); letter-spacing: .05em; }
+
+/* ============ Campos ============ */
+.cv-lab { font-family: 'Space Mono', monospace; font-size: 9.5px; letter-spacing: .12em; color: var(--cv-neon); text-transform: uppercase; display: block; margin-bottom: 3px; }
+.cv-sheet input[type=text], .cv-sheet input[type=number], .cv-sheet textarea, .cv-sheet select {
+  width: 100%; background: var(--cv-noite); color: var(--cv-veu); border: 1px solid #3d3552; padding: 6px 8px;
+  font-family: 'Lora', serif; font-size: 13px; border-radius: 0;
+}
+.cv-sheet select { font-family: 'Space Mono', monospace; font-size: 11.5px; }
+.cv-sheet input:focus, .cv-sheet textarea:focus, .cv-sheet select:focus { border-color: var(--cv-neon); outline: none; }
+.cv-sheet textarea { resize: vertical; min-height: 56px; }
+.cv-field { margin-bottom: 8px; }
+.cv-field-inline { display: flex; align-items: center; gap: 8px; }
+.cv-field-inline .cv-lab { margin: 0; flex: none; }
+.cv-inline-num { width: 60px !important; display: inline-block; margin-left: 6px; }
+.cv-inline-check { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--cv-nevoa); display: inline-flex; align-items: center; gap: 6px; text-transform: uppercase; }
+
+.cv-grid { display: grid; gap: 10px; }
+.cv-g2c { grid-template-columns: 1fr 1fr; }
+.cv-g3 { grid-template-columns: 2fr 1.4fr .8fr; }
+
+/* ============ Botões ============ */
+.cv-sheet button, .cv-mini, .cv-btn-rolar-livre {
+  font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase;
+  background: var(--cv-concreto); color: var(--cv-veu); border: 1px solid var(--cv-neon); padding: 6px 10px; cursor: pointer;
+}
+.cv-sheet button:hover { background: var(--cv-ritual); }
+.cv-mini { padding: 3px 8px; font-size: 9.5px; }
+.cv-btn-rolar-livre { font-size: 13px; padding: 8px 16px; }
+.cv-add-row { display: flex; gap: 6px; align-items: center; margin: 6px 0; flex-wrap: wrap; }
+.cv-add-row select, .cv-add-row input[type=text] { flex: 1; min-width: 140px; width: auto; }
+
+/* ============ Tag rows ============ */
+.cv-tagrow { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.cv-tagrow-inativa { opacity: .45; }
+.cv-sign { font-family: 'Space Mono', monospace; font-weight: 700; width: 22px; height: 22px; flex: none; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.cv-tagrow-pos .cv-sign { color: var(--cv-neon); border: 1px solid var(--cv-neon); }
+.cv-tagrow-neg .cv-sign { color: var(--cv-veu); background: var(--cv-ritual); border: 1px solid var(--cv-ritual); }
+.cv-tagrow-nome { flex: 1; font-size: 13.5px; cursor: pointer; }
+.cv-tagrow-nome:hover { color: var(--cv-lilas); }
+
+.cv-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--cv-neon); padding: 4px 9px; margin: 3px 6px 2px 0; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; }
+.cv-chip-neg { background: var(--cv-ritual); border-color: var(--cv-ritual); }
+.cv-chip .s { font-weight: 700; }
+.cv-chip-neg .s { color: var(--cv-lilas); }
+.cv-chip:not(.cv-chip-neg) .s { color: var(--cv-neon); }
+.cv-tags-grid { display: flex; flex-direction: column; gap: 2px; }
+
+/* ============ Ferimentos (losangos) ============ */
+.cv-fer { display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between; padding: 4px 2px 0; }
+.cv-fer-item { text-align: center; flex: 1; min-width: 110px; cursor: pointer; user-select: none; }
+.cv-los { width: 30px; height: 30px; border: 2px solid var(--cv-neon); transform: rotate(45deg); margin: 6px auto 12px; transition: .15s; background: transparent; }
+.cv-fer-item.on .cv-los { background: var(--cv-neon); box-shadow: 0 0 14px rgba(139, 92, 246, .7); }
+.cv-fer-nome { font-family: 'Unbounded', sans-serif; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; }
+.cv-fer-ef { font-family: 'Space Mono', monospace; font-size: 9.5px; color: var(--cv-nevoa); margin-top: 3px; line-height: 1.4; }
+.cv-fer-item.on .cv-fer-nome { color: var(--cv-lilas); }
+.cv-lista-ferimentos { margin-top: 8px; }
+.cv-riscado { text-decoration: line-through; opacity: .6; }
+
+/* ============ Vitalidade de Adversário/Lendário (pips) ============ */
+.cv-fer-adversario { justify-content: flex-start; gap: 8px; }
+.cv-vitalidade-pip { width: 26px; height: 26px; border: 2px solid var(--cv-ritual); cursor: pointer; flex: none; }
+.cv-vitalidade-pip.on { background: var(--cv-ritual); border-color: var(--cv-neon); box-shadow: 0 0 10px rgba(139, 92, 246, .6); }
+
+/* ============ Estilo de Vida ============ */
+.cv-vida-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.cv-vida-opt { border: 1px solid #3d3552; text-align: center; padding: 7px 4px; cursor: pointer; user-select: none; font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; }
+.cv-vida-opt.on { border-color: var(--cv-neon); background: var(--cv-ritual); }
+
+/* ============ Nível / XP ============ */
+.cv-xpbar { display: flex; gap: 4px; margin-top: 4px; }
+.cv-xp-pip { width: 20px; height: 20px; border: 1px solid var(--cv-ritual); cursor: pointer; }
+.cv-xp-pip.on { background: var(--cv-neon); border-color: var(--cv-neon); }
+
+/* ============ Token de Sorte ============ */
+.cv-token { display: inline-flex; align-items: center; gap: 10px; border: 1px solid #3d3552; padding: 6px 12px; cursor: pointer; user-select: none; margin-top: 4px; }
+.cv-los-mini { width: 12px; height: 12px; border: 2px solid var(--cv-neon); transform: rotate(45deg); flex: none; }
+.cv-token.on .cv-los-mini { background: var(--cv-neon); box-shadow: 0 0 8px rgba(139, 92, 246, .7); }
+.cv-tk-txt { font-family: 'Space Mono', monospace; font-size: 9.5px; letter-spacing: .1em; color: var(--cv-nevoa); text-transform: uppercase; }
+.cv-token.on .cv-tk-txt { color: var(--cv-lilas); }
+.cv-token.on { border-color: var(--cv-neon); }
+
+/* ============ Itens / Fases (cards) ============ */
+.cv-item-card, .cv-fase-card { border: 1px solid #3d3552; padding: 10px; margin-bottom: 10px; background: rgba(11, 10, 16, .5); }
+.cv-item-top, .cv-fase-top { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.cv-item-img { width: 32px; height: 32px; object-fit: cover; border: 1px solid var(--cv-neon); cursor: pointer; }
+.cv-item-nome { flex: 1; cursor: pointer; font-family: 'Unbounded', sans-serif; font-size: 12px; letter-spacing: .04em; }
+.cv-fase-nome { flex: 1; font-family: 'Unbounded', sans-serif; font-size: 13px; }
+.cv-fase-ativa { border-color: var(--cv-neon); box-shadow: 0 0 0 1px var(--cv-neon) inset; }
+
+/* ============ Diálogo de rolagem ============ */
+.cv-roll-dialog .window-content { background: var(--cv-noite); color: var(--cv-veu); font-family: 'Lora', serif; padding: 14px; }
+.cv-roll-dialog-body { display: flex; flex-direction: column; gap: 10px; }
+.cv-roll-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cv-roll-col-pos { border-left: 2px solid var(--cv-neon); padding-left: 10px; }
+.cv-roll-col-neg { border-left: 2px solid var(--cv-ritual); padding-left: 10px; }
+.cv-tagcheck { display: flex; align-items: center; gap: 6px; font-size: 12.5px; margin-bottom: 4px; cursor: pointer; }
+.cv-tagcheck .origem { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--cv-nevoa); text-transform: uppercase; margin-left: auto; }
+.cv-btn-rolar { font-family: 'Unbounded', sans-serif; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; background: var(--cv-ritual); color: var(--cv-veu); border: 1px solid var(--cv-neon); padding: 10px; cursor: pointer; margin-top: 6px; }
+.cv-btn-rolar:hover { background: var(--cv-neon); }
+
+/* ============ Card de chat ============ */
+.cv-chat-rolagem { font-family: 'Lora', serif; color: var(--cv-veu); background: var(--cv-noite); border: 1px solid var(--cv-ritual); padding: 10px 12px; }
+.cv-chat-flavor { font-family: 'Unbounded', sans-serif; font-size: 12px; letter-spacing: .04em; margin-bottom: 6px; }
+.cv-chat-tags { margin-bottom: 8px; }
+.cv-dado-pool { display: flex; gap: 18px; margin-bottom: 8px; }
+.cv-dado-coluna { display: flex; flex-direction: column; gap: 4px; }
+.cv-dado-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .12em; color: var(--cv-nevoa); text-transform: uppercase; }
+.cv-dado-linha { display: flex; gap: 4px; }
+.cv-dado { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 14px; border: 2px solid var(--cv-neon); color: var(--cv-veu); }
+.cv-dado-risco { background: var(--cv-ritual); border-color: var(--cv-ritual); }
+.cv-dado.anulado { opacity: .35; text-decoration: line-through; }
+.cv-resultado { display: flex; align-items: center; gap: 10px; padding: 6px 8px; font-family: 'Unbounded', sans-serif; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; border-left: 3px solid var(--cv-neon); background: rgba(139, 92, 246, .08); }
+.cv-resultado-falhaCritica { border-color: #F6F4FA; }
+.cv-ampliacoes { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--cv-lilas); }
+.cv-dano-linha { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; font-family: 'Space Mono', monospace; font-size: 11.5px; }
+.cv-btn-aplicar-dano, .cv-btn-token-sorte { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; background: var(--cv-concreto); color: var(--cv-veu); border: 1px solid var(--cv-neon); padding: 5px 10px; cursor: pointer; margin-top: 6px; }
+.cv-btn-aplicar-dano:hover, .cv-btn-token-sorte:hover { background: var(--cv-ritual); }
+.cv-token-usado { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--cv-nevoa); margin-top: 6px; }
+
+/* ============ Token picker (Dialog nativo) ============ */
+.cv-token-picker { display: flex; flex-direction: column; gap: 8px; }
+.cv-token-picker select { width: 100%; }

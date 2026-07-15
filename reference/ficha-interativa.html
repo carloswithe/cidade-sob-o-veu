@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha de Personagem — A Cidade Sob o Véu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noite:#0B0A10; --concreto:#1C1824; --concreto2:#252031; --nevoa:#8E8A99;
+  --veu:#F6F4FA; --ritual:#5B21B6; --neon:#8B5CF6; --lilas:#C9B8F0;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{background:var(--noite); color:var(--veu); font-family:'Lora',serif; font-size:15px; line-height:1.5;
+  background-image:radial-gradient(ellipse 60% 40% at 70% -10%, rgba(139,92,246,.14), transparent 60%);}
+.wrap{max-width:1060px; margin:0 auto; padding:28px 20px 80px;}
+.mono{font-family:'Space Mono',monospace;}
+
+/* ===== Fio do Véu ===== */
+.fio{height:2px; margin:26px 0 22px; background:
+  linear-gradient(90deg, var(--ritual), var(--neon) 70%, transparent 70%),
+  repeating-linear-gradient(90deg, var(--neon) 0 5px, transparent 5px 12px);
+  background-size:70% 2px, 100% 2px; background-repeat:no-repeat, no-repeat;
+  -webkit-mask-image:linear-gradient(90deg, #000 60%, transparent 99%); mask-image:linear-gradient(90deg,#000 60%, transparent 99%);}
+
+/* ===== Cabeçalho ===== */
+header{display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  border-bottom:2px solid var(--ritual); padding-bottom:16px;}
+.h-title h1{font-family:'Unbounded'; font-weight:600; font-size:24px; letter-spacing:.1em; text-transform:uppercase;}
+.h-title .sig{color:var(--neon); margin-right:10px;}
+.h-title .sub{font-family:'Space Mono'; font-size:11px; letter-spacing:.28em; color:var(--neon); text-transform:uppercase; margin-top:6px;}
+.toolbar{display:flex; gap:8px; flex-wrap:wrap;}
+button{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  background:var(--concreto); color:var(--veu); border:1px solid var(--neon); padding:8px 12px; cursor:pointer;}
+button:hover{background:var(--ritual);}
+button.ghost{border-color:var(--nevoa); color:var(--nevoa);}
+button.ghost:hover{background:var(--concreto2); color:var(--veu);}
+button.mini{padding:4px 8px; font-size:10px;}
+
+/* ===== Blocos ===== */
+section.bloco{border:1px solid #38304a; margin-top:22px; background:rgba(28,24,36,.55);}
+section.bloco>.tit{background:var(--ritual); padding:9px 14px; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+section.bloco>.tit h2{font-family:'Unbounded'; font-weight:400; font-size:13px; letter-spacing:.18em; text-transform:uppercase;}
+section.bloco>.tit .ref{font-family:'Space Mono'; font-size:10px; letter-spacing:.12em; color:var(--lilas); text-transform:uppercase;}
+section.bloco>.corpo{padding:16px 16px 18px;}
+.hint{font-family:'Space Mono'; font-size:10.5px; letter-spacing:.04em; color:var(--nevoa); text-transform:uppercase; margin:2px 0 10px;}
+
+/* ===== Campos ===== */
+label.lab{font-family:'Space Mono'; font-size:10px; letter-spacing:.14em; color:var(--neon); text-transform:uppercase; display:block; margin-bottom:4px;}
+input[type=text], input[type=number], textarea, select{
+  width:100%; background:var(--noite); color:var(--veu); border:1px solid #3d3552; padding:8px 10px;
+  font-family:'Lora',serif; font-size:14px; outline:none;}
+input:focus, textarea:focus, select:focus{border-color:var(--neon);}
+select{font-family:'Space Mono'; font-size:12.5px;}
+textarea{resize:vertical; min-height:64px;}
+.grid{display:grid; gap:14px;}
+.g3{grid-template-columns:2fr 1.4fr .8fr;}
+.g2c{grid-template-columns:1fr 1fr;}
+@media(max-width:760px){.g3,.g2c{grid-template-columns:1fr;}}
+
+/* ===== Tag rows ===== */
+.tagrow{display:flex; align-items:center; gap:8px; margin-bottom:8px;}
+.tagrow .sign{font-family:'Space Mono'; font-weight:700; width:26px; height:26px; flex:none; display:flex; align-items:center; justify-content:center; font-size:14px;}
+.tagrow.pos .sign{color:var(--neon); border:1px solid var(--neon);}
+.tagrow.neg .sign{color:var(--veu); background:var(--ritual); border:1px solid var(--ritual);}
+.tagrow select, .tagrow input{flex:1;}
+.tagrow .lvl{font-family:'Space Mono'; font-size:10px; color:var(--nevoa); white-space:nowrap;}
+.tagrow button{flex:none;}
+.chip{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--neon); padding:5px 10px; margin:4px 6px 2px 0;
+  font-family:'Space Mono'; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;}
+.chip.neg{background:var(--ritual); border-color:var(--ritual);}
+.chip .s{font-weight:700;}
+.chip.neg .s{color:var(--lilas);}
+.chip:not(.neg) .s{color:var(--neon);}
+
+/* ===== Ferimentos (losangos) ===== */
+.fer{display:flex; gap:26px; flex-wrap:wrap; justify-content:space-between; padding:6px 4px 0;}
+.fer .item{text-align:center; flex:1; min-width:130px; cursor:pointer; user-select:none;}
+.los{width:34px; height:34px; border:2px solid var(--neon); transform:rotate(45deg); margin:8px auto 16px; transition:.15s; background:transparent;}
+.fer .item.on .los{background:var(--neon); box-shadow:0 0 14px rgba(139,92,246,.7);}
+.fer .nome{font-family:'Unbounded'; font-size:11px; letter-spacing:.14em; text-transform:uppercase;}
+.fer .ef{font-family:'Space Mono'; font-size:10px; color:var(--nevoa); margin-top:4px; line-height:1.45;}
+.fer .item.on .nome{color:var(--lilas);}
+
+/* estilo de vida */
+.vida{display:grid; grid-template-columns:repeat(6,1fr); gap:8px;}
+@media(max-width:760px){.vida{grid-template-columns:repeat(3,1fr);}}
+.vida .opt{border:1px solid #3d3552; text-align:center; padding:8px 4px; cursor:pointer; user-select:none;}
+.vida .opt .d{font-family:'Space Mono'; font-size:10px; color:var(--neon); display:block;}
+.vida .opt .n{font-family:'Unbounded'; font-size:10px; letter-spacing:.06em; text-transform:uppercase; display:block; margin-top:3px;}
+.vida .opt.on{border-color:var(--neon); background:var(--ritual);}
+
+/* nível/xp */
+.xpbar{display:flex; gap:5px; margin-top:6px;}
+.xpbar .q{width:22px; height:22px; border:1px solid var(--ritual); cursor:pointer;}
+.xpbar .q.on{background:var(--neon); border-color:var(--neon);}
+.badge{font-family:'Space Mono'; font-size:11px; color:var(--lilas); letter-spacing:.06em;}
+
+/* token de sorte */
+.token{display:inline-flex; align-items:center; gap:12px; border:1px solid #3d3552; padding:7px 14px; cursor:pointer; user-select:none; margin-top:6px;}
+.token .los-mini{width:13px; height:13px; border:2px solid var(--neon); transform:rotate(45deg); flex:none;}
+.token.on .los-mini{background:var(--neon); box-shadow:0 0 10px rgba(139,92,246,.7);}
+.token .tk-txt{font-family:'Space Mono'; font-size:10px; letter-spacing:.14em; color:var(--nevoa); text-transform:uppercase;}
+.token.on .tk-txt{color:var(--lilas);}
+.token.on{border-color:var(--neon);}
+
+/* itens */
+.item-card{border:1px solid #3d3552; padding:12px; margin-bottom:12px; background:rgba(11,10,16,.5);}
+.item-card .top{display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;}
+.item-card .top .nome{flex:1; min-width:200px;}
+.counter{font-family:'Space Mono'; font-size:11px; color:var(--nevoa); letter-spacing:.08em;}
+.summary{font-family:'Space Mono'; font-size:11.5px; letter-spacing:.08em; color:var(--lilas);}
+
+/* impressão = modo diurno */
+@media print{
+  body{background:var(--veu); color:var(--noite); background-image:none; font-size:12px;}
+  .toolbar, button, .hint .noprint, .noprint{display:none !important;}
+  section.bloco{background:#fff; border-color:var(--noite); break-inside:avoid;}
+  input, select, textarea{background:#fff; color:var(--noite); border-color:#aaa;}
+  .fer .ef{color:#555;} .hint{color:#666;}
+  label.lab{color:var(--ritual);}
+  .chip{color:var(--noite);} .chip.neg{color:var(--veu);}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="h-title">
+    <h1><span class="sig">◈</span>Ficha de Personagem</h1>
+    <div class="sub">Fantasia Urbana Sobrenatural · A Cidade Sob o Véu</div>
+  </div>
+  <div class="toolbar">
+    <button onclick="exportJSON()">⬇ Salvar (.json)</button>
+    <button onclick="document.getElementById('importFile').click()">⬆ Carregar</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+    <button onclick="window.print()">🖨 Imprimir</button>
+    <button class="ghost" onclick="resetAll()">Limpar</button>
+  </div>
+</header>
+
+<!-- IDENTIDADE -->
+<section class="bloco">
+  <div class="tit"><h2>Identidade</h2><span class="ref">Quem é você sob o véu</span></div>
+  <div class="corpo">
+    <div class="grid g3">
+      <div><label class="lab">Personagem</label><input type="text" id="f_nome" placeholder="Nome do personagem"></div>
+      <div><label class="lab">Jogador(a)</label><input type="text" id="f_jogador"></div>
+      <div><label class="lab">Nível</label>
+        <select id="f_nivel" onchange="rebuildSlots()"></select>
+      </div>
+    </div>
+    <div class="grid g2c" style="margin-top:12px;">
+      <div><label class="lab">Conceito</label><input type="text" id="f_conceito" placeholder="Ex.: legista que vê demais"></div>
+      <div>
+        <label class="lab">XP para o próximo nível <span class="badge" id="xpinfo"></span></label>
+        <div class="xpbar" id="xpbar"></div>
+        <div class="token" id="tokenBox" onclick="toggleToken()" title="Regra opcional (Cap. 1): 1 por sessão · ajusta 1 dado em ±1">
+          <span class="los-mini"></span><span class="tk-txt" id="tkTxt">Token de Sorte · disponível</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:14px;">
+      <label class="lab">Estilo de Vida (Cap. 7) <button class="mini noprint" onclick="rolarVida()">🎲 rolar 1d20</button> <span class="badge" id="vidaRoll"></span></label>
+      <div class="vida" id="vidaGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FERIMENTOS -->
+<section class="bloco">
+  <div class="tit"><h2>Trilha de Ferimentos</h2><span class="ref">Clique nos losangos · Cap. 8</span></div>
+  <div class="corpo">
+    <div class="fer" id="ferGrid"></div>
+    <div class="grid g2c" style="margin-top:8px;">
+      <div><label class="lab">Ferimentos atuais (nomeie-os)</label><input type="text" id="f_ferimentos" placeholder="Ex.: Estilhaços nas Costas"></div>
+      <div><label class="lab">Proteção em uso (−1 dano se adequada)</label><input type="text" id="f_protecao" placeholder="Ex.: colete balístico"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCO 1 -->
+<section class="bloco">
+  <div class="tit"><h2>① Características</h2><span class="ref">Cap. 3 · +1 qualidade a cada nível par</span></div>
+  <div class="corpo">
+    <div class="hint">Qualidades <span id="qCount" class="counter"></span></div>
+    <div id="qualidades"></div>
+    <div class="hint" style="margin-top:14px;">Defeitos · novos defeitos podem vir da quase morte (Cap. 8)</div>
+    <div id="defeitos"></div>
+    <button class="mini noprint" onclick="addDefeito()">+ adicionar defeito (quase morte)</button>
+  </div>
+</section>
+
+<!-- BLOCO 2 -->
+<section class="bloco">
+  <div class="tit"><h2>② Ancestralidade</h2><span class="ref">Cap. 4 · definida só na criação</span></div>
+  <div class="corpo">
+    <div class="grid g2c">
+      <div>
+        <label class="lab">Ancestralidade <button class="mini noprint" onclick="rolarAncestral()">🎲 1d8</button></label>
+        <select id="f_ancestral" onchange="renderAncestral()"></select>
+      </div>
+      <div><label class="lab">Definições com o mestre (votos, funções, defeitos de fabricação…)</label><input type="text" id="f_ancNotas"></div>
+    </div>
+    <div id="ancTags" style="margin-top:12px;"></div>
+  </div>
+</section>
+
+<!-- BLOCO 3 -->
+<section class="bloco">
+  <div class="tit"><h2>③ Arquétipo</h2><span class="ref">Cap. 5 · +1 especialidade e +1 vício por nível</span></div>
+  <div class="corpo">
+    <div style="max-width:420px;">
+      <label class="lab">Arquétipo <button class="mini noprint" onclick="rolarArq()">🎲 1d10</button></label>
+      <select id="f_arq" onchange="rebuildSlots()"></select>
+    </div>
+    <div class="hint" style="margin-top:14px;">Especialidades <span id="eCount" class="counter"></span></div>
+    <div id="especialidades"></div>
+    <div class="hint" style="margin-top:14px;">Vícios e Limitações <span id="vCount" class="counter"></span></div>
+    <div id="vicios"></div>
+  </div>
+</section>
+
+<!-- BLOCO 4 -->
+<section class="bloco">
+  <div class="tit"><h2>④ Antecedente</h2><span class="ref">Cap. 2 e 9 · + ganhos narrativos (Cap. 6)</span></div>
+  <div class="corpo">
+    <div style="max-width:420px;">
+      <label class="lab">Profissão <button class="mini noprint" onclick="rolarProf()">🎲 1d100</button></label>
+      <select id="f_prof"></select>
+    </div>
+    <div class="hint" style="margin-top:14px;">Aprendizados · o 1º é ligado à profissão; os demais vêm de feitos marcantes</div>
+    <div id="aprendizados"></div>
+    <button class="mini noprint" onclick="addAprendizado()">+ adicionar aprendizado</button>
+    <div class="hint" style="margin-top:14px;">Traumas · o 1º na criação; os demais vêm de reveses</div>
+    <div id="traumas"></div>
+    <button class="mini noprint" onclick="addTrauma()">+ adicionar trauma</button>
+  </div>
+</section>
+
+<!-- ITENS -->
+<section class="bloco">
+  <div class="tit"><h2>Itens Mágicos ou Aprimorados</h2><span class="ref">Cap. 7 · nível = nº de dádivas</span></div>
+  <div class="corpo">
+    <div id="itens"></div>
+    <button class="mini noprint" onclick="addItem()">+ adicionar item</button>
+  </div>
+</section>
+
+<!-- EQUIPAMENTO / NOTAS -->
+<section class="bloco">
+  <div class="tit"><h2>Equipamento, Bens &amp; Notas</h2><span class="ref">Coerente com o estilo de vida · a cidade lembra</span></div>
+  <div class="corpo grid g2c">
+    <div><label class="lab">Equipamento &amp; bens</label><textarea id="f_equip" rows="4"></textarea></div>
+    <div><label class="lab">Aliados, inimigos &amp; notas</label><textarea id="f_notas" rows="4"></textarea></div>
+  </div>
+</section>
+
+<div class="fio"></div>
+<div class="summary" id="resumo"></div>
+<p class="hint" style="margin-top:10px;">◈ A regra de ouro: toda tag vale em algumas cenas — não em todas. Tags negativas não são punição: são convites de cena.</p>
+
+</div>
+
+<script>
+/* =================== DADOS DO SISTEMA =================== */
+const CAR = {
+ "Mental":{q:["Perspicaz","Memória Prodigiosa","Raciocínio Rápido","Sangue-Frio","Estrategista","Curioso Incansável","Intuitivo","Erudito","Engenhoso","Disciplinado","Observador","Mente Analítica","Vontade de Ferro","Senso de Direção","Polímata","Leitor de Pessoas","Paciente","Imaginação Fértil","Pragmático","Aprendiz Veloz"],
+ d:["Distraído","Impulsivo","Memória Falha","Indeciso","Obsessivo","Medroso","Supersticioso","Teimoso","Pensamento Lento","Pessimista","Ingênuo","Mente Dispersa","Paranoico","Analfabeto Funcional","Curiosidade Fatal","Traumatizável","Sem Noção de Perigo","Rígido","Vive no Passado","Perfeccionista Paralisante"]},
+ "Social":{q:["Carismático","Lábia Rápida","Voz de Comando","Empático","Negociador","Rosto Amigável","Bem-Relacionado","Diplomata","Mentiroso Convincente","Sedutor","Contador de Histórias","Camaleão Social","Reputação Sólida","Intimidador","Bom Ouvinte","Líder Nato","Discreto","Senso de Etiqueta","Humor Desarmante","Confiável"],
+ d:["Arrogante","Desconfiado","Timidez Paralisante","Grosseiro","Má Reputação","Fofoqueiro","Provocador","Mentiroso Compulsivo","Presunçoso","Rosto Marcado","Ranzinza","Submisso","Ciumento","Preconceituoso","Inconveniente","Frio e Distante","Devedor Crônico","Explosivo","Manipulável","Forasteiro Eterno"]},
+ "Física":{q:["Atlético","Forte como um Touro","Ágil","Resistente","Reflexos Felinos","Visão de Águia","Audição Apurada","Mãos Firmes","Fôlego Inesgotável","Silencioso","Equilibrista","Nadador Nato","Recuperação Rápida","Estômago de Ferro","Presença Imponente","Mira Certeira","Escalador","Leve como uma Pluma","Tolerante ao Clima","Coordenação Perfeita"],
+ d:["Pesado","Franzino","Lento","Desastrado","Visão Fraca","Audição Ruim","Fôlego Curto","Ferimento Antigo","Saúde Frágil","Mãos Trêmulas","Medo de Altura","Não Sabe Nadar","Sono Pesado","Barulhento","Dependente Químico","Cicatrização Lenta","Alergia Severa","Baixa Tolerância à Dor","Sensível ao Clima","Movimentos Rígidos"]}
+};
+const ANC = {
+ "Humano":{v:["Adaptabilidade Impressionante","Invisível ao Sobrenatural"],vu:["Frágil Diante do Impossível","Cego para o Oculto"]},
+ "Vampiro":{v:["Vigor Sobre-Humano","Fascínio Predatório"],vu:["Maldição do Sol","Sede Voraz"]},
+ "Lobisomem":{v:["Sentidos de Predador","Fúria da Fera"],vu:["Instinto Indomável","Marcado pela Prata"]},
+ "Ínfero":{v:["Língua de Enxofre","Carne do Abismo"],vu:["Estigma Infernal","Preso à Palavra Dada"]},
+ "Férico":{v:["Glamour","Passos Entre Véus"],vu:["Alergia ao Ferro Frio","Incapaz de Mentir"]},
+ "Celestial":{v:["Aura de Graça","Toque Restaurador"],vu:["Farol no Escuro","Voto Inquebrantável"]},
+ "Reanimado":{v:["Corpo Além da Dor","Já Estive do Outro Lado"],vu:["Carne que Não Cura","Cheiro da Sepultura"]},
+ "Experimento":{v:["Projetado para uma Função","Fisiologia Anômala"],vu:["Defeito de Fabricação","Propriedade de Alguém"]}
+};
+const ARQ = {
+"Caçador":{e:["Rastreador Implacável","Conhecimento da Presa","Armadilheiro","Tiro de Precisão","Arsenal Improvisado","Faro para o Anormal","Combate contra o Maior","Rede de Informantes","Perseguição Urbana","Munição Especializada","Sentinela Paciente","Primeiros Golpes","Anatomia do Monstro","Resistente a Horrores","Interrogador","Camuflagem de Odor e Presença","Leitura de Cena","Contenção, Não Abate","Veterano de Emboscadas","Fôlego do Perseguidor"],
+v:["Visão de Túnel","Vingança Pessoal","Atira Primeiro","Marcado pelas Presas","Solitário Crônico","Código do Caçador","Insônia do Vigilante","Dívida com o Submundo","Paranoia de Emboscada","Troféus Comprometedores","Mãos de Matador","Presa Que Escapou","Ferido em Serviço","Superstição de Ofício","Sem Vida Fora da Caça","Reputação Sangrenta","Frieza Excessiva","Equipamento Antes de Tudo","Sede de Perigo","Piedade Traiçoeira"]},
+"Oráculo":{e:["Vislumbre do Imediato","Leitura de Presságios","Psicometria","Sonhos Proféticos","Olhar que Desnuda","Cartografia do Destino","Voz dos Mortos","Aura Reveladora","Déjà-vu Controlado","Profecia Sob Demanda","Pressentimento de Perigo","Leitura de Padrões","Visão do Elo","Eco de Lugares","Palavra que se Cumpre","Transe Profundo","Guia de Perdidos","Calendário Oculto","Testemunha do Passado","Brecha na Névoa"],
+v:["Visões Involuntárias","Enxaqueca do Dom","Fala em Enigmas","Fama de Louco","Peso do Que Viu","Incapaz de Ver o Próprio Fio","Cortejado por Poderosos","Corpo Frágil de Vidente","Confunde Tempos","Presságios Compulsivos","Dependente do Ritual","Fatalista","Sono Invadido","Toque Perigoso","Dívida com a Fonte","Vidência Embriagante","Verdades que Ferem","Presente Desfocado","Marcado pelo Além","Silêncio Forçado"]},
+"Arma Juramentada":{e:["Vínculo de Aço","Chamado da Lâmina","Golpe Desperto","Guarda Perfeita","Corte no Intangível","Duelista","Postura do Sentinela","Disciplina do Juramento","Estilo Consagrado","Leitura de Duelo","Arma que Sussurra","Porte Cerimonial","Manutenção Ritual","Investida Jurada","Desarme Preciso","Resiliência do Devoto","Irmandade de Armas","Golpe Contido","Herança da Arma","Último Bastião"],
+v:["Preso ao Juramento","Nu sem a Arma","Vontade da Lâmina","Honra Antes da Razão","Rival Juramentado","Dívida do Vínculo","Cerimonioso Demais","Mestre de Mãos Sujas","Zelo Cego","Arma Cobiçada","Só Fala em Combate","Marcas do Vínculo","Juramento Conflitante","Fúria da Desonra","Peso da Herança","Manutenção Exigente","Obediência Visível","Poupado para o Dever","Isolado pelo Voto","A Arma Escolhe"]},
+"Maculado":{e:["Maldição Lançada","Olho Gravado","Sombras Obedientes","Sussurro do Patrono","Toque que Definha","Pacto Menor","Sangue como Tinta","Língua Proibida","Marcas de Proteção","Familiar Vinculado","Fome Transferida","Presença Profana","Corrosão Arcana","Rota das Encruzilhadas","Colheita de Segredos","Chama Fria","Escrita de Contrato","Véu do Devedor","Eco do Abismo","Mercador de Fragmentos"],
+v:["A Conta Sempre Chega","Marca Visível do Pacto","Cláusulas Ocultas","Voz na Cabeça","Repulsa do Sagrado","Fome do Poder","Alma em Retalhos","Devedores Não Fogem","Tributo Periódico","Aura que Murcha","Concorrentes de Pacto","Proibições do Contrato","Caçado por Zelotes","Reflexo Denunciante","Sorte Hipotecada","Poder que Vaza","Nome Verdadeiro Penhorado","Sono Vigiado","Corpo em Juros","Última Cláusula"]},
+"Ungido":{e:["Imposição de Mãos","Repreensão Sagrada","Luz Interior","Escudo da Fé","Palavra que Consola","Consagração","Juízo Revelador","Voto de Amparo","Ira Justa","Água e Óleo Sagrados","Peregrino Guiado","Vigília Incansável","Rede da Congregação","Exorcista","Testemunho Inspirador","Mártir Resiliente","Liturgia de Batalha","Absolvição","Olhar do Pastor","Milagre Relutante"],
+v:["Mandamentos Rígidos","Bênção Condicional","Dever Antes de Tudo","Farol dos Profanos","Compaixão Exploável","Zelo Inflexível","Voto de Pobreza","Culpa Devoradora","Hierarquia Terrena","Rosto Conhecido da Fé","Proibido de Mentir","Teste Constante","Misericórdia Obrigatória","Crise de Fé","Corpo como Oferenda","Inimigo Jurado do Abismo","Pureza Exigente","Ombros do Rebanho","Julgado em Dobro","Chamado Inegociável"]},
+"Mago":{e:["Evocação de Energia","Escudos e Barreiras","Alquimia Prática","Runas e Selos","Contramagia","Olho Arcano","Translocação Curta","Ilusões Tecidas","Biblioteca Viva","Encantador de Objetos","Leitura de Grimórios","Manipulação Elemental","Círculo de Invocação","Sensor de Fluxos","Transmutação Menor","Rede de Estudiosos","Ritualista Meticuloso","Bolso Dimensional","Anatomia da Maldição","Improviso Arcano"],
+v:["Preso aos Componentes","Encantamentos Lentos","Arrogância Acadêmica","Corpo de Biblioteca","Curiosidade Proibida","Dívida de Aprendizado","Rival de Academia","Exaustão Arcana","Perfeccionismo Ritual","Segredos que Pesam","Efeitos Colaterais","Teoria Antes da Prática","Laboratório Vulnerável","Cego ao Óbvio","Juramento da Ordem","Experimento Fugitivo","Voz e Gesto Obrigatórios","Colecionador Compulsivo","Assinatura Reconhecível","O Preço do Conhecimento"]},
+"Monstro":{e:["Força Aberrante","Voracidade","Terror Ambulante","Regeneração Grotesca","Garras e Presas","Pele de Aberração","Salto Impossível","Faro de Sangue","Instinto Assassino","Frenesi Controlado","Anatomia Errada","Rugido Paralisante","Predador Silencioso","Come Qualquer Coisa","Território Marcado","Mimetismo Humano","Dor é Combustível","Presa Predileta","Enxame ou Prole","Fome que Nunca Erra"],
+v:["Fome Insaciável","Impossível de Esconder","Fúria Descontrolada","Caçado por Todos","Gatilho da Besta","Não Entende Pessoas","Rastro de Destruição","Medo do Que É","Fixação de Presa","Fraqueza Ancestral","Sem Meio-Termo","Marcas de Vítimas","Domesticado por Alguém","A Máscara Escorrega","Sono de Predador Saciado","Instintos Barulhentos","Ninguém Chega Perto","Preso ao Território","Prole Problemática","A Besta Cresce"]},
+"Adepto Marcial":{e:["Punhos como Aço","Arma como Extensão","Aparar Projéteis","Toque de Pressão","Imobilização Perfeita","Golpe do Trovão","Raiz Imóvel","Leitura Corporal","Passo Etéreo","Escalada do Templo","Passo do Claustro","Respiração de Ferro","Jejum do Peregrino","Ouvir o Salão","Mente Imperturbável","Presença Serena","Parábola do Mestre","Discípulo dos Mestres","Diagnóstico pelo Toque","Cura pelo Fluxo"],
+v:["Dogma Inegociável","Recusa Armas de Fogo","Ritual Diário Obrigatório","Orgulho de Escola","Desafios Não se Recusam","Deslocado no Século","Voto de Silêncio Parcial","Irmão Renegado","Piedade de Mestre","Dívida com o Monastério","Jejuns e Purificações","Lento para Confiar","O Corpo Cobra os Séculos","Literal Demais","Guardião de um Segredo","Serenidade Frágil","Pobreza Monástica","Marca da Ordem","Honra o Oponente","Aprendiz Pendurado"]},
+"Receptáculo":{e:["Manifestação Parcial","Força Emprestada","Conselho Interior","Domínio da Entidade","Sentidos Duplicados","Cura de Dentro","Presença Dominante","Palavra da Divindade","Sincronia Perfeita","Escudo do Hóspede","Percepção de Devotos","Fúria Emprestada","Memórias de Eras","Âncora Estável","Idiomas do Além","Transbordamento Controlado","Marca do Avatar","Corpo Refeito","Diálogo com o Divino","Eclipse Total"],
+v:["Vontades em Conflito","A Fronteira Afina","Apetites da Entidade","Corpo em Sobrecarga","Devotos Indesejados","Inimigos Herdados","Vazamentos de Poder","Sono Compartilhado","Aura Inconfundível","Tabus do Hóspede","Fala em Duas Vozes","Exorcistas na Cola","Memórias Invasivas","Barganha Interna","O Corpo Muda","Silêncio da Entidade","Alvo de Colecionadores","Emoções Emprestadas","Âncoras Necessárias","O Hóspede Cresce"]},
+"Veterano":{e:["Manha de Sobrevivente","Já Vi Esse Truque","Agenda de Ouro","Memória de Campo","Economia de Movimento","Olho Clínico para Talento","Mestre de Aprendizes","Reputação que Precede","Sabe Onde Dói","Plano B, C e D","Frieza de Quem Já Perdeu Tudo","Leitura de Velho Jogador","Improviso de Oficina","Dívidas a Cobrar","Faro para Encrenca","Instinto Remanescente","Paciência de Tocaia","Arquivo Vivo","Voz de Comando Aposentada","Truque Sujo Guardado"],
+v:["O Corpo Cobra","O Dom que se Foi","Inimigos com Boa Memória","Fama de Acabado","Vive de Glórias Passadas","Orgulho de Quem Foi","Muleta Discreta","Nostalgia Paralisante","Métodos de Outra Época","Juramento Quebrado","Protege Demais os Novos","Cicatrizes que Ardem","Portas que Ele Mesmo Fechou","Aposta Tudo num Retorno","Sono Povoado","Lento para Confiar em Novato","O Substituto","Luto do Que Foi","A Dívida da Última Queda","Uma Última Missão"]}
+};
+const PROF = ["Médico","Enfermeiro","Paramédico","Psicólogo","Veterinário","Farmacêutico","Dentista","Fisioterapeuta","Cuidador de Idosos","Médico Legista","Policial","Detetive Particular","Bombeiro","Segurança Privado","Advogado","Militar","Agente Penitenciário","Perito Forense","Guarda-Costas","Salva-Vidas","Programador","Hacker / Analista de Segurança","Engenheiro Civil","Químico","Biólogo","Técnico de Laboratório","Cientista de Dados","Técnico em Eletrônica","Operador de Drones","Engenheiro Mecatrônico","Jornalista","Fotógrafo","Músico","Ator","Escritor","Tatuador","Artista de Rua","Influenciador Digital","Documentarista","Ilustrador","Mecânico","Eletricista","Encanador","Chaveiro / Serralheiro","Marceneiro","Pedreiro","Soldador","Alfaiate / Costureiro","Joalheiro / Relojoeiro","Funileiro","Motorista de Aplicativo","Caminhoneiro","Motoboy / Entregador","Piloto","Marinheiro / Estivador","Taxista Veterano","Operador de Metrô","Courier de Valores","Guincheiro","Despachante","Bartender","Chef de Cozinha","Barbeiro / Cabeleireiro","Lojista","Garçom","Personal Trainer","Agente Funerário","Zelador","Porteiro","Dono de Loja de Penhores","Contador","Corretor de Imóveis","Gerente de Banco","Publicitário","Analista de RH","Vendedor Corporativo","Trader","Secretária Executiva","Auditor","Corretor de Seguros","Professor","Bibliotecário","Historiador","Arqueólogo","Tradutor / Intérprete","Curador de Museu","Antropólogo","Líder Religioso","Guia Turístico","Arquivista","Antiquário","Coveiro","Taxidermista","Tarólogo de Feira","Caçador de Recompensas","Contrabandista","Falsificador","Vigarista","Caçador de Relíquias","Apostador Profissional"];
+const VIDA = [["1–4","Miserável"],["5–8","Precário"],["9–12","Modesto"],["13–16","Confortável"],["17–19","Abastado"],["20","Milionário"]];
+const FER = [["1 · Leve","só narrativo · sara com uma cena de descanso"],["2 · Moderado","tag − quando relevante · dias"],["3 · Severo","tag − em toda ação física · semanas"],["4 · Fatal","fora de ação · estabilizar ou morrer · deixa marca"]];
+const CUSTOM = "✎ Outra (personalizada)…";
+
+/* =================== ESTADO =================== */
+let S = { extraDef:0, apr:1, tra:1, itens:[] , fer:0 };
+const $ = id => document.getElementById(id);
+const dado = n => 1 + Math.floor(Math.random()*n);
+
+/* =================== CONSTRUÇÃO DE SELECTS =================== */
+function optCustom(){ const o=document.createElement('option'); o.value="__custom"; o.textContent=CUSTOM; return o; }
+function selCarac(tipo){ // tipo 'q' ou 'd' — optgroups por grupo
+  const s=document.createElement('select');
+  s.append(new Option("— escolha ou role —",""));
+  for(const g in CAR){
+    const og=document.createElement('optgroup'); og.label=g;
+    CAR[g][tipo].forEach(n=>og.append(new Option(n, g+"|"+n)));
+    s.append(og);
+  }
+  s.append(optCustom());
+  return s;
+}
+function selLista(arr, rot){ const s=document.createElement('select');
+  s.append(new Option(rot||"— escolha ou role —",""));
+  arr.forEach((n,i)=>s.append(new Option(((i+1)+". ")+n, n)));
+  s.append(optCustom()); return s;
+}
+function attachCustom(sel){
+  const inp=document.createElement('input'); inp.type='text'; inp.placeholder='Descreva a tag personalizada'; inp.style.display='none';
+  sel.addEventListener('change',()=>{ inp.style.display = sel.value==="__custom" ? '' : 'none'; refreshResumo(); });
+  return inp;
+}
+function tagRow(container, cls, sel, extras){
+  const row=document.createElement('div'); row.className='tagrow '+cls;
+  const sign=document.createElement('span'); sign.className='sign'; sign.textContent = cls==='pos'?'+':'−';
+  row.append(sign, sel);
+  const inp=attachCustom(sel); row.append(inp);
+  const btn=document.createElement('button'); btn.className='mini noprint'; btn.textContent='🎲';
+  btn.onclick=()=>{ const opts=[...sel.options].filter(o=>o.value && o.value!=="__custom");
+    if(opts.length){ sel.value=opts[Math.floor(Math.random()*opts.length)].value; sel.dispatchEvent(new Event('change')); }};
+  row.append(btn);
+  if(extras) extras.forEach(x=>row.append(x));
+  container.append(row);
+  sel.addEventListener('change',refreshResumo);
+  return row;
+}
+
+/* =================== SLOTS DINÂMICOS =================== */
+function keepValues(container){ return [...container.querySelectorAll('select,input[type=text]')].map(e=>e.value); }
+function restoreValues(container, vals){
+  const els=[...container.querySelectorAll('select,input[type=text]')];
+  els.forEach((e,i)=>{ if(vals[i]!==undefined){ e.value=vals[i]; if(e.tagName==='SELECT') e.dispatchEvent(new Event('change')); }});
+}
+function rebuildSlots(){
+  const lvl = +$('f_nivel').value || 1;
+  // qualidades: 3 + níveis pares
+  const q=$('qualidades'); const qv=keepValues(q); q.innerHTML='';
+  const nQ = 3 + Math.floor(lvl/2);
+  for(let i=0;i<nQ;i++){
+    const lbl = i<3 ? 'CRIAÇÃO' : ('NÍVEL '+(2*(i-2)));
+    const tag=document.createElement('span'); tag.className='lvl'; tag.textContent=lbl;
+    tagRow(q,'pos',selCarac('q'),[tag]);
+  }
+  restoreValues(q,qv);
+  $('qCount').textContent='('+nQ+' no nível '+lvl+')';
+  // defeitos: 3 + extras
+  const d=$('defeitos'); const dv=keepValues(d); d.innerHTML='';
+  for(let i=0;i<3+S.extraDef;i++){
+    const tag=document.createElement('span'); tag.className='lvl'; tag.textContent= i<3?'CRIAÇÃO':'QUASE MORTE';
+    tagRow(d,'neg',selCarac('d'),[tag]);
+  }
+  restoreValues(d,dv);
+  // arquétipo
+  const arq=$('f_arq').value;
+  const e=$('especialidades'); const ev=keepValues(e); e.innerHTML='';
+  const v=$('vicios'); const vv=keepValues(v); v.innerHTML='';
+  const eArr = ARQ[arq]? ARQ[arq].e : [];
+  const vArr = ARQ[arq]? ARQ[arq].v : [];
+  for(let i=0;i<lvl;i++){
+    const t1=document.createElement('span'); t1.className='lvl'; t1.textContent = i===0?'CRIAÇÃO':('NÍVEL '+(i+1));
+    tagRow(e,'pos',selLista(eArr, arq?undefined:'— escolha o arquétipo acima —'),[t1]);
+    const t2=document.createElement('span'); t2.className='lvl'; t2.textContent = i===0?'CRIAÇÃO':('NÍVEL '+(i+1));
+    tagRow(v,'neg',selLista(vArr, arq?undefined:'— escolha o arquétipo acima —'),[t2]);
+  }
+  restoreValues(e,ev); restoreValues(v,vv);
+  $('eCount').textContent='('+lvl+' no nível '+lvl+')';
+  $('vCount').textContent='('+lvl+' no nível '+lvl+')';
+  refreshResumo();
+}
+function addDefeito(){ S.extraDef++; rebuildSlots(); }
+
+/* Antecedente */
+function buildAnt(){
+  const a=$('aprendizados'); const av=keepValues(a); a.innerHTML='';
+  for(let i=0;i<S.apr;i++){
+    if(i===0){ const s=selLista([], '↳ usa a profissão selecionada acima'); s.disabled=true;
+      const row=document.createElement('div'); row.className='tagrow pos';
+      const sign=document.createElement('span'); sign.className='sign'; sign.textContent='+';
+      const inp=document.createElement('input'); inp.type='text'; inp.placeholder='Redação do aprendizado da profissão (ex.: Conhecimentos de Legista)';
+      const t=document.createElement('span'); t.className='lvl'; t.textContent='PROFISSÃO';
+      row.append(sign,inp,t); a.append(row); inp.addEventListener('input',refreshResumo);
+    } else {
+      const row=document.createElement('div'); row.className='tagrow pos';
+      const sign=document.createElement('span'); sign.className='sign'; sign.textContent='+';
+      const inp=document.createElement('input'); inp.type='text'; inp.placeholder='Aprendizado narrativo (concedido pelo mestre)';
+      const t=document.createElement('span'); t.className='lvl'; t.textContent='NARRATIVO';
+      row.append(sign,inp,t); a.append(row); inp.addEventListener('input',refreshResumo);
+    }
+  }
+  restoreValues(a,av);
+  const tr=$('traumas'); const tv=keepValues(tr); tr.innerHTML='';
+  for(let i=0;i<S.tra;i++){
+    const row=document.createElement('div'); row.className='tagrow neg';
+    const sign=document.createElement('span'); sign.className='sign'; sign.textContent='−';
+    const inp=document.createElement('input'); inp.type='text'; inp.placeholder= i===0?'Trauma da criação (ex.: Trauma de Afogamento)':'Trauma narrativo (concedido pelo mestre)';
+    const t=document.createElement('span'); t.className='lvl'; t.textContent= i===0?'CRIAÇÃO':'NARRATIVO';
+    row.append(sign,inp,t); tr.append(row); inp.addEventListener('input',refreshResumo);
+  }
+  restoreValues(tr,tv);
+}
+function addAprendizado(){ S.apr++; buildAnt(); }
+function addTrauma(){ S.tra++; buildAnt(); }
+
+/* Ancestralidade */
+function renderAncestral(){
+  const a=$('f_ancestral').value; const box=$('ancTags'); box.innerHTML='';
+  if(!ANC[a]){ refreshResumo(); return; }
+  const mk=(n,neg)=>{ const c=document.createElement('span'); c.className='chip'+(neg?' neg':'');
+    c.innerHTML='<span class="s">'+(neg?'−':'+')+'</span> '+n; return c; };
+  const t1=document.createElement('div'); t1.className='hint'; t1.textContent='Virtudes';
+  box.append(t1); ANC[a].v.forEach(n=>box.append(mk(n,false)));
+  const t2=document.createElement('div'); t2.className='hint'; t2.style.marginTop='10px'; t2.textContent='Vulnerabilidades';
+  box.append(t2); ANC[a].vu.forEach(n=>box.append(mk(n,true)));
+  refreshResumo();
+}
+
+/* Ferimentos */
+function buildFer(){
+  const g=$('ferGrid'); g.innerHTML='';
+  FER.forEach((f,i)=>{
+    const it=document.createElement('div'); it.className='item'+(S.fer>i?' on':'');
+    it.innerHTML='<div class="los"></div><div class="nome">'+f[0]+'</div><div class="ef">'+f[1]+'</div>';
+    it.onclick=()=>{ S.fer = (S.fer===i+1)? i : i+1; buildFer(); };
+    g.append(it);
+  });
+}
+
+/* Estilo de vida */
+function buildVida(sel){
+  const g=$('vidaGrid'); g.innerHTML='';
+  VIDA.forEach((v,i)=>{
+    const o=document.createElement('div'); o.className='opt'+(S.vida===i?' on':'');
+    o.innerHTML='<span class="d">'+v[0]+'</span><span class="n">'+v[1]+'</span>';
+    o.onclick=()=>{ S.vida=i; buildVida(); };
+    g.append(o);
+  });
+}
+function rolarVida(){ const r=dado(20);
+  const i = r<=4?0 : r<=8?1 : r<=12?2 : r<=16?3 : r<=19?4 : 5;
+  S.vida=i; buildVida(); $('vidaRoll').textContent='→ rolou '+r+': '+VIDA[i][1];
+}
+function rolarAncestral(){ const ks=Object.keys(ANC); const r=dado(8); $('f_ancestral').value=ks[r-1]; renderAncestral(); }
+function rolarArq(){ const ks=Object.keys(ARQ); const r=dado(10); $('f_arq').value=ks[r-1]; rebuildSlots(); }
+function rolarProf(){ const r=dado(100); $('f_prof').value=PROF[r-1]; refreshResumo(); }
+
+/* Token de Sorte */
+function renderToken(){
+  const b=$('tokenBox');
+  b.classList.toggle('on', !!S.token);
+  $('tkTxt').textContent = S.token ? 'Token de Sorte · disponível' : 'Token de Sorte · gasto (renova na próxima sessão)';
+}
+function toggleToken(){ S.token=!S.token; renderToken(); }
+
+/* XP */
+function buildXP(){
+  const b=$('xpbar'); b.innerHTML='';
+  for(let i=0;i<10;i++){ const q=document.createElement('div'); q.className='q'+(S.xp>i?' on':'');
+    q.onclick=()=>{ S.xp = (S.xp===i+1)? i : i+1; buildXP(); }; b.append(q); }
+  $('xpinfo').textContent = S.xp>=10 ? '· 10/10 — suba de nível!' : '· '+S.xp+'/10';
+}
+
+/* Itens */
+function addItem(data){
+  const idx=S.itens.length; S.itens.push(1);
+  const card=document.createElement('div'); card.className='item-card'; card.dataset.idx=idx;
+  card.innerHTML=`
+    <div class="top">
+      <div class="nome"><label class="lab">Item</label><input type="text" class="it-nome" placeholder="Ex.: Sobretudo do Véu"></div>
+      <div><label class="lab">Nível (nº de dádivas)</label>
+        <select class="it-nivel"><option>1</option><option>2</option><option>3</option></select></div>
+      <button class="mini noprint" onclick="this.closest('.item-card').remove(); refreshResumo();">✕ remover</button>
+    </div>
+    <div class="it-dad" style="margin-top:10px;"></div>
+    <div class="it-mal"></div>
+    <button class="mini noprint it-addmal">+ maldição/infortúnio (máx. 3)</button>`;
+  $('itens').append(card);
+  const dad=card.querySelector('.it-dad'), mal=card.querySelector('.it-mal'), nivel=card.querySelector('.it-nivel');
+  function buildDad(){ const vals=keepValues(dad); dad.innerHTML='';
+    for(let i=0;i<+nivel.value;i++){ const row=document.createElement('div'); row.className='tagrow pos';
+      row.innerHTML='<span class="sign">+</span>'; const inp=document.createElement('input'); inp.type='text'; inp.placeholder='Dádiva '+(i+1)+' (ex.: À Prova de Lâminas)';
+      row.append(inp); dad.append(row); inp.addEventListener('input',refreshResumo);} restoreValues(dad,vals); }
+  nivel.addEventListener('change',()=>{buildDad(); refreshResumo();});
+  buildDad();
+  card.querySelector('.it-addmal').onclick=()=>{ if(mal.children.length>=3) return;
+    const row=document.createElement('div'); row.className='tagrow neg';
+    row.innerHTML='<span class="sign">−</span>'; const inp=document.createElement('input'); inp.type='text'; inp.placeholder='Maldição ou infortúnio';
+    const rm=document.createElement('button'); rm.className='mini noprint'; rm.textContent='✕'; rm.onclick=()=>{row.remove(); refreshResumo();};
+    row.append(inp,rm); mal.append(row); inp.addEventListener('input',refreshResumo); };
+  if(data){ card.querySelector('.it-nome').value=data.nome||''; nivel.value=data.nivel||1; buildDad();
+    restoreValues(dad, data.dadivas||[]);
+    (data.maldicoes||[]).forEach(m=>{ card.querySelector('.it-addmal').click();
+      mal.lastChild.querySelector('input').value=m; }); }
+  refreshResumo();
+}
+
+/* Resumo */
+function countFilled(container, posSel, negSel){
+  let p=0,n=0;
+  container.querySelectorAll('.tagrow.pos').forEach(r=>{ const e=r.querySelector('select,input[type=text]');
+    const v = r.querySelector('select') ? (r.querySelector('select').value==='__custom' ? r.querySelector('input')?.value : r.querySelector('select').value) : e.value;
+    if(v) p++; });
+  container.querySelectorAll('.tagrow.neg').forEach(r=>{ const sel=r.querySelector('select');
+    const v = sel ? (sel.value==='__custom' ? r.querySelector('input')?.value : sel.value) : r.querySelector('input[type=text]')?.value;
+    if(v) n++; });
+  return [p,n];
+}
+function refreshResumo(){
+  let p=0,n=0;
+  [['qualidades'],['defeitos'],['especialidades'],['vicios'],['aprendizados'],['traumas'],['itens']].forEach(([id])=>{
+    const [a,b]=countFilled($(id)); p+=a; n+=b; });
+  const anc=$('f_ancestral').value; if(ANC[anc]){ p+=2; n+=2; }
+  $('resumo').textContent='◈ TAGS EM JOGO — POSITIVAS: '+p+' · NEGATIVAS: '+n;
+}
+
+/* =================== SALVAR / CARREGAR =================== */
+function snapshot(){
+  const grab=id=>[...$(id).querySelectorAll('select,input[type=text]')].map(e=>e.value);
+  return {
+    nome:$('f_nome').value, jogador:$('f_jogador').value, conceito:$('f_conceito').value,
+    nivel:$('f_nivel').value, xp:S.xp, vida:S.vida, fer:S.fer, token:S.token,
+    ferimentos:$('f_ferimentos').value, protecao:$('f_protecao').value,
+    ancestral:$('f_ancestral').value, ancNotas:$('f_ancNotas').value,
+    arq:$('f_arq').value, prof:$('f_prof').value,
+    extraDef:S.extraDef, apr:S.apr, tra:S.tra,
+    qualidades:grab('qualidades'), defeitos:grab('defeitos'),
+    especialidades:grab('especialidades'), vicios:grab('vicios'),
+    aprendizados:grab('aprendizados'), traumas:grab('traumas'),
+    equip:$('f_equip').value, notas:$('f_notas').value,
+    itens:[...document.querySelectorAll('.item-card')].map(c=>({
+      nome:c.querySelector('.it-nome').value, nivel:c.querySelector('.it-nivel').value,
+      dadivas:[...c.querySelectorAll('.it-dad input')].map(i=>i.value),
+      maldicoes:[...c.querySelectorAll('.it-mal input')].map(i=>i.value)}))
+  };
+}
+function exportJSON(){
+  const blob=new Blob([JSON.stringify(snapshot(),null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=($('f_nome').value||'personagem').toLowerCase().replace(/\s+/g,'-')+'.json'; a.click();
+}
+function importJSON(ev){
+  const f=ev.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ try{ loadState(JSON.parse(r.result)); }catch(e){ alert('Arquivo inválido.'); } };
+  r.readAsText(f); ev.target.value='';
+}
+function loadState(d){
+  $('f_nome').value=d.nome||''; $('f_jogador').value=d.jogador||''; $('f_conceito').value=d.conceito||'';
+  $('f_nivel').value=d.nivel||'1'; S.xp=d.xp||0; S.vida=d.vida; S.fer=d.fer||0; S.token=(d.token!==false);
+  S.extraDef=d.extraDef||0; S.apr=d.apr||1; S.tra=d.tra||1;
+  $('f_ferimentos').value=d.ferimentos||''; $('f_protecao').value=d.protecao||'';
+  $('f_ancestral').value=d.ancestral||''; $('f_ancNotas').value=d.ancNotas||'';
+  $('f_arq').value=d.arq||''; $('f_prof').value=d.prof||'';
+  $('f_equip').value=d.equip||''; $('f_notas').value=d.notas||'';
+  rebuildSlots(); buildAnt(); buildXP(); buildFer(); buildVida(); renderAncestral(); renderToken();
+  const put=(id,vals)=>{ const els=[...$(id).querySelectorAll('select,input[type=text]')];
+    els.forEach((e,i)=>{ if(vals&&vals[i]!==undefined){ e.value=vals[i]; if(e.tagName==='SELECT') e.dispatchEvent(new Event('change')); }}); };
+  put('qualidades',d.qualidades); put('defeitos',d.defeitos);
+  put('especialidades',d.especialidades); put('vicios',d.vicios);
+  put('aprendizados',d.aprendizados); put('traumas',d.traumas);
+  $('itens').innerHTML=''; S.itens=[]; (d.itens||[]).forEach(it=>addItem(it));
+  refreshResumo();
+}
+function resetAll(){ if(confirm('Limpar toda a ficha?')) location.reload(); }
+
+/* =================== INIT =================== */
+(function init(){
+  const nv=$('f_nivel'); for(let i=1;i<=10;i++) nv.append(new Option('Nível '+i,i));
+  const an=$('f_ancestral'); an.append(new Option('— escolha ou role —',''));
+  Object.keys(ANC).forEach((k,i)=>an.append(new Option((i+1)+'. '+k,k)));
+  const aq=$('f_arq'); aq.append(new Option('— escolha ou role —',''));
+  Object.keys(ARQ).forEach((k,i)=>aq.append(new Option((i+1)+'. '+k,k)));
+  const pf=$('f_prof'); pf.append(new Option('— escolha ou role —',''));
+  PROF.forEach((p,i)=>pf.append(new Option((i+1)+'. '+p,p)));
+  pf.append(optCustom());
+  pf.addEventListener('change',()=>{ refreshResumo(); });
+  S.xp=0; S.fer=0; S.token=true;
+  rebuildSlots(); buildAnt(); buildXP(); buildFer(); buildVida(); renderToken();
+  refreshResumo();
+})();
+</script>
+</body>
+</html>

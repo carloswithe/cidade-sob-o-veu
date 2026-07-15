@@ -1,0 +1,66 @@
+<div class="cv-sheet cv-adversario">
+
+  <header class="cv-header">
+    <img class="cv-img" src="{{actor.img}}" data-edit="img" alt="{{actor.name}}">
+    <div class="cv-header-main">
+      <input class="cv-nome" type="text" name="name" value="{{actor.name}}" placeholder="Nome do adversário">
+      <div class="cv-sub">Adversário · Cap. 11</div>
+      <div class="cv-grid cv-g3">
+        <div>
+          <label class="cv-lab">Porte</label>
+          <select name="system.porte">
+            {{#each portes as |p|}}<option value="{{p}}" {{selecionado p ../system.porte}}>{{p}}</option>{{/each}}
+          </select>
+        </div>
+        <div><label class="cv-lab">Vitalidade máxima</label><input type="number" name="system.vitalidade.max" value="{{system.vitalidade.max}}" min="1" max="6"></div>
+        <div>
+          <label class="cv-lab">Categoria de Arma</label>
+          <select name="system.categoriaArma">
+            {{#each categorias as |c|}}<option value="{{c.chave}}" {{selecionado c.chave ../system.categoriaArma}}>{{c.label}}</option>{{/each}}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="cv-toolbar">
+      <button type="button" class="cv-btn-rolar-livre" data-action="rolar-livre">🎲 Rolar</button>
+    </div>
+  </header>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Vitalidade</h2><span class="cv-ref">{{system.vitalidade.atual}} / {{system.vitalidade.max}}{{#if system.foraDeCombate}} · fora de combate{{/if}}</span></div>
+    <div class="cv-corpo">
+      <div class="cv-fer cv-fer-adversario">
+        {{#each vitalidadePips as |i|}}
+        <div class="cv-vitalidade-pip {{#if (gt ../system.vitalidade.atual i)}}on{{/if}}" data-action="toggle-vitalidade" data-index="{{i}}"></div>
+        {{/each}}
+      </div>
+      <div class="cv-add-row">
+        <input type="number" name="dano-manual" placeholder="pontos de dano" min="1" style="max-width:120px;">
+        <button type="button" class="cv-mini" data-action="aplicar-dano-self">Aplicar Dano</button>
+      </div>
+      <div class="cv-field" style="margin-top:10px;"><label class="cv-lab">Proteção</label><input type="text" name="system.protecao" value="{{system.protecao}}" placeholder="Ex.: couro grosso (−1 contra impacto)"></div>
+    </div>
+  </section>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Tags</h2><span class="cv-ref">Positivas = Risco pro jogador · Negativas = Fraqueza</span></div>
+    <div class="cv-corpo">
+      <div class="cv-hint">Positivas</div>
+      {{#each tagsPositivas as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="pos"}}{{/each}}
+      <button type="button" class="cv-mini" data-action="add-tag-pos">+ adicionar Tag</button>
+
+      <div class="cv-hint" style="margin-top:14px;">Fraquezas (negativas)</div>
+      {{#each tagsNegativas as |t|}}{{> "cidade-sob-o-veu.tag-row" t=t cls="neg"}}{{/each}}
+      <button type="button" class="cv-mini" data-action="add-tag-neg">+ adicionar Fraqueza</button>
+    </div>
+  </section>
+
+  <section class="cv-bloco">
+    <div class="cv-tit"><h2>Descrição</h2></div>
+    <div class="cv-corpo cv-grid cv-g2c">
+      <div><label class="cv-lab">Como aparece</label><textarea name="system.comoAparece" rows="4">{{system.comoAparece}}</textarea></div>
+      <div><label class="cv-lab">Como luta</label><textarea name="system.comoLuta" rows="4">{{system.comoLuta}}</textarea></div>
+    </div>
+    <div class="cv-corpo"><label class="cv-lab">Descrição geral</label><textarea name="system.descricao" rows="3">{{system.descricao}}</textarea></div>
+  </section>
+</div>

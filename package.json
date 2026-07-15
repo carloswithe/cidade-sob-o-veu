@@ -1,0 +1,13 @@
+{
+  "name": "cidade-sob-o-veu",
+  "version": "0.1.0",
+  "description": "Sistema de RPG para Foundry VTT — A Cidade Sob o Véu",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:packs": "node scripts/build-packs.mjs"
+  },
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.0"
+  }
+}

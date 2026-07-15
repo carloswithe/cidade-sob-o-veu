@@ -1,0 +1,144 @@
+<div class="cv-sheet cv-item-sheet">
+  <header class="cv-header cv-header-item">
+    <img class="cv-img" src="{{item.img}}" data-edit="img" alt="{{item.name}}">
+    <div class="cv-header-main">
+      <input class="cv-nome" type="text" name="name" value="{{item.name}}">
+      <div class="cv-sub">{{item.type}}</div>
+    </div>
+  </header>
+
+  {{#if isTag}}
+  <section class="cv-bloco">
+    <div class="cv-corpo cv-grid cv-g2c">
+      <div>
+        <label class="cv-lab">Polaridade</label>
+        <select name="system.polaridade">
+          <option value="positiva" {{selecionado system.polaridade "positiva"}}>Positiva (Ação)</option>
+          <option value="negativa" {{selecionado system.polaridade "negativa"}}>Negativa (Risco)</option>
+        </select>
+      </div>
+      <div>
+        <label class="cv-lab">Origem</label>
+        <select name="system.origem">
+          {{#each (array "caracteristica" "ancestralidade" "arquetipo" "antecedente" "ferimento" "item-magico" "cena") as |o|}}
+          <option value="{{o}}" {{selecionado ../system.origem o}}>{{capitalize o}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="cv-corpo">
+      <label class="cv-inline-check"><input type="checkbox" name="system.ativa" {{marcado system.ativa}}> Tag ativa (entra nas rolagens)</label>
+    </div>
+    <div class="cv-corpo"><label class="cv-lab">Descrição</label><textarea name="system.descricao" rows="4">{{system.descricao}}</textarea></div>
+  </section>
+  {{/if}}
+
+  {{#if isArquetipo}}
+  <section class="cv-bloco">
+    <div class="cv-corpo">
+      <label class="cv-lab">Em uma frase</label><input type="text" name="system.emUmaFrase" value="{{system.emUmaFrase}}">
+      <label class="cv-lab" style="margin-top:8px;">Descrição</label><textarea name="system.descricao" rows="3">{{system.descricao}}</textarea>
+    </div>
+    <div class="cv-corpo">
+      <div class="cv-hint">Especialidades (d20)</div>
+      {{#each system.especialidades as |e i|}}
+      <div class="cv-add-row" data-campo="especialidades" data-index="{{i}}">
+        <input type="text" name="system.especialidades.{{i}}.nome" value="{{e.nome}}" placeholder="Nome">
+        <input type="text" name="system.especialidades.{{i}}.descricao" value="{{e.descricao}}" placeholder="Descrição">
+        <button type="button" class="cv-mini" data-action="delete-linha" data-campo="especialidades" data-index="{{i}}">✕</button>
+      </div>
+      {{/each}}
+      <button type="button" class="cv-mini" data-action="add-linha" data-campo="especialidades">+ adicionar</button>
+    </div>
+    <div class="cv-corpo">
+      <div class="cv-hint">Vícios e Limitações (d20)</div>
+      {{#each system.vicios as |v i|}}
+      <div class="cv-add-row" data-campo="vicios" data-index="{{i}}">
+        <input type="text" name="system.vicios.{{i}}.nome" value="{{v.nome}}" placeholder="Nome">
+        <input type="text" name="system.vicios.{{i}}.descricao" value="{{v.descricao}}" placeholder="Descrição">
+        <button type="button" class="cv-mini" data-action="delete-linha" data-campo="vicios" data-index="{{i}}">✕</button>
+      </div>
+      {{/each}}
+      <button type="button" class="cv-mini" data-action="add-linha" data-campo="vicios">+ adicionar</button>
+    </div>
+  </section>
+  {{/if}}
+
+  {{#if isAncestralidade}}
+  <section class="cv-bloco">
+    <div class="cv-corpo">
+      <label class="cv-lab">Em uma frase</label><input type="text" name="system.emUmaFrase" value="{{system.emUmaFrase}}">
+    </div>
+    <div class="cv-corpo">
+      <div class="cv-hint">Virtudes</div>
+      {{#each system.virtudes as |v i|}}
+      <div class="cv-add-row">
+        <input type="text" name="system.virtudes.{{i}}.nome" value="{{v.nome}}" placeholder="Nome">
+        <input type="text" name="system.virtudes.{{i}}.descricao" value="{{v.descricao}}" placeholder="Descrição">
+        <button type="button" class="cv-mini" data-action="delete-linha" data-campo="virtudes" data-index="{{i}}">✕</button>
+      </div>
+      {{/each}}
+      <button type="button" class="cv-mini" data-action="add-linha" data-campo="virtudes">+ adicionar</button>
+    </div>
+    <div class="cv-corpo">
+      <div class="cv-hint">Vulnerabilidades</div>
+      {{#each system.vulnerabilidades as |v i|}}
+      <div class="cv-add-row">
+        <input type="text" name="system.vulnerabilidades.{{i}}.nome" value="{{v.nome}}" placeholder="Nome">
+        <input type="text" name="system.vulnerabilidades.{{i}}.descricao" value="{{v.descricao}}" placeholder="Descrição">
+        <button type="button" class="cv-mini" data-action="delete-linha" data-campo="vulnerabilidades" data-index="{{i}}">✕</button>
+      </div>
+      {{/each}}
+      <button type="button" class="cv-mini" data-action="add-linha" data-campo="vulnerabilidades">+ adicionar</button>
+    </div>
+  </section>
+  {{/if}}
+
+  {{#if isProfissao}}
+  <section class="cv-bloco">
+    <div class="cv-corpo"><label class="cv-lab">O que o Aprendizado cobre</label><textarea name="system.cobre" rows="3">{{system.cobre}}</textarea></div>
+  </section>
+  {{/if}}
+
+  {{#if isTrauma}}
+  <section class="cv-bloco">
+    <div class="cv-corpo"><label class="cv-lab">Quando pesa</label><textarea name="system.quandoPesa" rows="3">{{system.quandoPesa}}</textarea></div>
+  </section>
+  {{/if}}
+
+  {{#if isMItem}}
+  <section class="cv-bloco">
+    <div class="cv-corpo cv-grid cv-g2c">
+      <div><span class="cv-badge">Nível {{system.nivel}} (= nº de Dádivas)</span></div>
+      <div>
+        <label class="cv-lab">Portado</label>
+        <select name="system.equipado">
+          <option value="portando" {{selecionado system.equipado "portando"}}>Portando</option>
+          <option value="guardado" {{selecionado system.equipado "guardado"}}>Guardado</option>
+        </select>
+      </div>
+    </div>
+    <div class="cv-corpo"><label class="cv-lab">Descrição</label><textarea name="system.descricao" rows="3">{{system.descricao}}</textarea></div>
+    <div class="cv-corpo">
+      <div class="cv-hint">Dádivas (Tags positivas, 1 a 3)</div>
+      {{#each system.dadivas as |d i|}}
+      <div class="cv-add-row">
+        <input type="text" name="system.dadivas.{{i}}.nome" value="{{d.nome}}" placeholder="Dádiva">
+        <button type="button" class="cv-mini" data-action="delete-linha" data-campo="dadivas" data-index="{{i}}">✕</button>
+      </div>
+      {{/each}}
+      {{#if (lt system.dadivas.length 3)}}<button type="button" class="cv-mini" data-action="add-linha" data-campo="dadivas">+ adicionar</button>{{/if}}
+    </div>
+    <div class="cv-corpo">
+      <div class="cv-hint">Maldições ou Infortúnios (Tags negativas, 0 a 3)</div>
+      {{#each system.maldicoes as |m i|}}
+      <div class="cv-add-row">
+        <input type="text" name="system.maldicoes.{{i}}.nome" value="{{m.nome}}" placeholder="Maldição">
+        <button type="button" class="cv-mini" data-action="delete-linha" data-campo="maldicoes" data-index="{{i}}">✕</button>
+      </div>
+      {{/each}}
+      {{#if (lt system.maldicoes.length 3)}}<button type="button" class="cv-mini" data-action="add-linha" data-campo="maldicoes">+ adicionar</button>{{/if}}
+    </div>
+  </section>
+  {{/if}}
+</div>

@@ -1,0 +1,50 @@
+{
+  "TYPES": {
+    "Actor": {
+      "Actor": "Actor",
+      "personagem": "Personagem",
+      "adversario": "Adversário",
+      "lendario": "Lendário"
+    },
+    "Item": {
+      "Item": "Item",
+      "tag": "Tag",
+      "arquetipo": "Arquétipo",
+      "ancestralidade": "Ancestralidade",
+      "profissao": "Profissão",
+      "trauma": "Trauma",
+      "mitem": "Item Mágico ou Aprimorado"
+    }
+  },
+  "CIDADE_SOB_O_VEU": {
+    "SystemTitle": "A Cidade Sob o Véu",
+    "Rolar": "Rolar",
+    "TagsPositivas": "Tags Positivas",
+    "TagsNegativas": "Tags Negativas",
+    "SucessoEspetacular": "Sucesso Espetacular",
+    "SucessoParcial": "Sucesso Parcial",
+    "FalhaParcial": "Falha Parcial",
+    "FalhaCritica": "Falha Crítica",
+    "Ampliacao": "Ampliação",
+    "TokenDeSorte": "Token de Sorte",
+    "AplicarDano": "Aplicar Dano",
+    "Ferimentos": {
+      "Leve": "Leve",
+      "Moderado": "Moderado",
+      "Severo": "Severo",
+      "Fatal": "Fatal"
+    },
+    "Porte": {
+      "Capanga": "Capanga",
+      "Ameaça": "Ameaça",
+      "AdversarioAAltura": "Adversário à Altura",
+      "Colosso": "Colosso"
+    },
+    "CategoriaArma": {
+      "I": "I — Impacto",
+      "II": "II — Letal Leve",
+      "III": "III — Letal",
+      "IV": "IV — Devastadora"
+    }
+  }
+}

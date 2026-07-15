@@ -1,0 +1,7 @@
+<div class="cv-tagrow cv-tagrow-{{cls}} {{#unless t.system.ativa}}cv-tagrow-inativa{{/unless}}" data-item-id="{{t.id}}">
+  <span class="cv-sign">{{#if (eq cls "pos")}}+{{else}}−{{/if}}</span>
+  <span class="cv-tagrow-nome" data-action="edit-item" title="{{t.system.descricao}}">{{t.name}}</span>
+  <button type="button" class="cv-mini" data-action="rolar-tag" title="Rolar com esta Tag">🎲</button>
+  <button type="button" class="cv-mini" data-action="toggle-ativa" title="Ativar/desativar Tag">{{#if t.system.ativa}}◉{{else}}○{{/if}}</button>
+  <button type="button" class="cv-mini" data-action="delete-item" title="Remover">✕</button>
+</div>

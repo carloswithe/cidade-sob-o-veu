@@ -1,0 +1,31 @@
+{
+  "id": "cidade-sob-o-veu",
+  "title": "A Cidade Sob o Véu",
+  "description": "Sistema de RPG de fantasia urbana sobrenatural baseado em Tags e Dados de Ação/Risco.",
+  "authors": [{ "name": "Carlos Withe" }],
+  "url": "https://github.com/carloswithe/cidade-sob-o-veu",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "bugs": "https://github.com/carloswithe/cidade-sob-o-veu/issues",
+  "changelog": "CHANGELOG.md",
+  "version": "0.1.0",
+  "compatibility": { "minimum": 12, "verified": "13" },
+  "esmodules": ["module/cidade-sob-o-veu.mjs"],
+  "styles": ["styles/cidade-sob-o-veu.css"],
+  "languages": [
+    { "lang": "pt-BR", "name": "Português (Brasil)", "path": "lang/pt-BR.json" }
+  ],
+  "packs": [
+    { "name": "arquetipos", "label": "Arquétipos", "path": "packs/arquetipos.db", "type": "Item", "system": "cidade-sob-o-veu", "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" } },
+    { "name": "ancestralidades", "label": "Ancestralidades", "path": "packs/ancestralidades.db", "type": "Item", "system": "cidade-sob-o-veu", "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" } },
+    { "name": "profissoes", "label": "Profissões", "path": "packs/profissoes.db", "type": "Item", "system": "cidade-sob-o-veu", "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" } },
+    { "name": "traumas", "label": "Traumas", "path": "packs/traumas.db", "type": "Item", "system": "cidade-sob-o-veu", "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" } },
+    { "name": "adversarios", "label": "Adversários", "path": "packs/adversarios.db", "type": "Actor", "system": "cidade-sob-o-veu", "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" } },
+    { "name": "ameacas-da-cidade", "label": "Cem Ameaças da Cidade", "path": "packs/ameacas-da-cidade.db", "type": "Actor", "system": "cidade-sob-o-veu", "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" } }
+  ],
+  "primaryTokenAttribute": "vida.pontos",
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "manifest": "https://raw.githubusercontent.com/carloswithe/cidade-sob-o-veu/main/system.json",
+  "download": "https://github.com/carloswithe/cidade-sob-o-veu/releases/download/v0.1.0/cidade-sob-o-veu-0.1.0.zip"
+}

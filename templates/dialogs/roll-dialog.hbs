@@ -1,0 +1,63 @@
+<div class="cv-roll-dialog-body">
+  <div class="cv-field">
+    <label class="cv-lab">Ação tentada</label>
+    <input type="text" name="flavor" value="{{flavor}}" placeholder="Ex.: saltar do prédio para o outro">
+  </div>
+
+  <div class="cv-roll-cols">
+    <div class="cv-roll-col cv-roll-col-pos">
+      <div class="cv-hint">Tags positivas (dado de Ação) — 1 dado base sempre incluso</div>
+      {{#each tagsPositivas}}
+      <label class="cv-tagcheck cv-tagcheck-pos">
+        <input type="checkbox" name="tags.{{id}}" {{#if marcada}}checked{{/if}}>
+        <span class="s">+</span> {{name}}
+        <span class="origem">{{origem}}</span>
+      </label>
+      {{else}}
+      <p class="cv-empty">Nenhuma Tag positiva ativa.</p>
+      {{/each}}
+      <div class="cv-field cv-field-inline">
+        <label class="cv-lab">Dados de Ação extras (cena)</label>
+        <input type="number" name="extraAcao" value="0" min="0" max="6">
+      </div>
+    </div>
+
+    <div class="cv-roll-col cv-roll-col-neg">
+      <div class="cv-hint">Tags negativas / riscos (dado de Risco)</div>
+      {{#each tagsNegativas}}
+      <label class="cv-tagcheck cv-tagcheck-neg">
+        <input type="checkbox" name="tags.{{id}}" {{#if marcada}}checked{{/if}}>
+        <span class="s">−</span> {{name}}
+        <span class="origem">{{origem}}</span>
+      </label>
+      {{else}}
+      <p class="cv-empty">Nenhuma Tag negativa ativa.</p>
+      {{/each}}
+      <div class="cv-field cv-field-inline">
+        <label class="cv-lab">Dados de Risco extras (cena)</label>
+        <input type="number" name="extraRisco" value="0" min="0" max="6">
+      </div>
+    </div>
+  </div>
+
+  <div class="cv-fio"></div>
+
+  <div class="cv-field cv-field-inline">
+    <label class="cv-lab">Calcular dano automaticamente?</label>
+    <select name="modoDano">
+      <option value="nenhum">Não — só resolver a ação</option>
+      <option value="sofrido">Sim — dano sofrido pelo personagem (Cap. 8)</option>
+      <option value="causado">Sim — dano causado a um adversário (Cap. 11)</option>
+    </select>
+  </div>
+  <div class="cv-field cv-field-inline">
+    <label class="cv-lab">Categoria da arma/perigo</label>
+    <select name="categoriaArma">
+      {{#each categorias}}
+      <option value="{{chave}}" {{#if (eq chave ../categoriaArma)}}selected{{/if}}>{{label}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <button type="submit" class="cv-btn-rolar">🎲 Rolar</button>
+</div>

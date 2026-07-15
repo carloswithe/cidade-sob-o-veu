@@ -1,0 +1,235 @@
+[
+  {
+    "name": "Segurança de Boate",
+    "system": { "porte": "Capanga", "vitalidade": { "max": 1, "atual": 1 }, "categoriaArma": "I", "protecao": "", "descricao": "Um muro de músculos na porta errada. Perigoso em grupo, contornável na lábia." },
+    "items": [
+      { "name": "Corpulento", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Segue o Protocolo", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — previsível, negociável com hierarquia." } }
+    ]
+  },
+  {
+    "name": "Cultista do Círculo Raso",
+    "system": { "porte": "Capanga", "vitalidade": { "max": 1, "atual": 1 }, "categoriaArma": "II", "protecao": "", "descricao": "Descartável até para o próprio culto. O perigo real é o que ele está tentando invocar." },
+    "items": [
+      { "name": "Fanatismo Cego", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Amador Nervoso", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — entra em pânico quando o ritual desanda." } }
+    ]
+  },
+  {
+    "name": "Carniçal dos Túneis",
+    "system": { "porte": "Ameaça", "vitalidade": { "max": 2, "atual": 2 }, "categoriaArma": "II", "protecao": "", "descricao": "Come o que acha nos subterrâneos. Ultimamente, anda achando gente." },
+    "items": [
+      { "name": "Faro de Carne", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Rápido no Escuro", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "A Luz o Cega", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza." } }
+    ]
+  },
+  {
+    "name": "Mercenária do Submundo",
+    "system": { "porte": "Ameaça", "vitalidade": { "max": 2, "atual": 2 }, "categoriaArma": "III", "protecao": "Colete (−1 contra balas e lâminas)", "descricao": "Não é pessoal. Nunca é. A não ser que você aumente a oferta." },
+    "items": [
+      { "name": "Fria e Profissional", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Conhece os Becos", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Só Luta por Contrato", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — dinheiro renegocia tudo." } }
+    ]
+  },
+  {
+    "name": "Cria Vampírica em Frenesi",
+    "system": { "porte": "Adversário à Altura", "vitalidade": { "max": 3, "atual": 3 }, "categoriaArma": "III", "protecao": "", "descricao": "Transformada há dias e abandonada pelo senhor. Só restou a fome." },
+    "items": [
+      { "name": "Vigor de Morto-Vivo", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Sede Ensandecida", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Sem Controle Algum", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — isca de sangue a manipula." } }
+    ]
+  },
+  {
+    "name": "Feiticeiro Maculado da Encruzilhada",
+    "system": { "porte": "Adversário à Altura", "vitalidade": { "max": 4, "atual": 4 }, "categoriaArma": "III", "protecao": "", "descricao": "Vendeu quase tudo. O que resta, gasta em manter os cobradores longe — custe o que custar aos outros." },
+    "items": [
+      { "name": "Arsenal de Maldições", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Selos de Proteção", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Devedor Desesperado", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — seu patrono cobra hoje." } }
+    ]
+  },
+  {
+    "name": "Alfa da Alcateia do Porto",
+    "system": { "porte": "Colosso", "vitalidade": { "max": 5, "atual": 5 }, "categoriaArma": "III", "protecao": "Couro da fera (−1 contra impacto e lâminas)", "descricao": "Duas décadas mandando no cais. Já enterrou todos que tentaram mudar isso." },
+    "items": [
+      { "name": "Fúria Colossal", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Sentidos de Predador", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Território Conhecido", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "A Prata o Queima", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — anula a proteção e fere fundo." } }
+    ]
+  },
+  {
+    "name": "Demônio Manifestado",
+    "system": { "porte": "Colosso", "vitalidade": { "max": 6, "atual": 6 }, "categoriaArma": "IV", "protecao": "", "descricao": "Não deveria estar deste lado. Alguém abriu a porta — e a conta chegou para a cidade inteira." },
+    "items": [
+      { "name": "Carne do Abismo", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Terror Ambulante", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Astúcia Milenar", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Preso ao Nome Verdadeiro", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — quem o souber pode bani-lo ou vinculá-lo." } }
+    ]
+  },
+  {
+    "name": "Agente da Divisão Velada",
+    "system": {
+      "porte": "Ameaça", "vitalidade": { "max": 2, "atual": 2 }, "categoriaArma": "III", "protecao": "Colete (−1 contra balas e lâminas)",
+      "comoAparece": "Depois do incidente, antes da imprensa. Faz perguntas educadas com respostas já decididas.",
+      "comoLuta": "Nunca sozinho e nunca às cegas — cerca, isola, oferece o acordo uma única vez."
+    },
+    "items": [
+      { "name": "Treinamento de Elite", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Autoridade que Não Existe Oficialmente", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Preso ao Protocolo", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — burocracia e cadeia de comando o engessam." } }
+    ]
+  },
+  {
+    "name": "Esquadrão de Contenção (Bando de 4)",
+    "system": {
+      "porte": "Capanga", "vitalidade": { "max": 4, "atual": 4 }, "categoriaArma": "III", "protecao": "Equipamento tático (−1)",
+      "descricao": "Bando de 4 Capangas (1 de vitalidade por membro, ver Cap. 11).",
+      "comoAparece": "Vans pretas, quarteirão fechado, \"operação de rotina\" às três da manhã.",
+      "comoLuta": "Progressão por cobertura, luzes, granadas de atordoamento. Cada ponto de dano derruba um operador — e abala os demais."
+    },
+    "items": [
+      { "name": "Formação Coordenada", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Visão Noturna e Comunicação", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Sem Iniciativa Própria", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — corta o comando e a formação desmonta." } }
+    ]
+  },
+  {
+    "name": "Sacerdote do Culto do Abismo",
+    "system": {
+      "porte": "Adversário à Altura", "vitalidade": { "max": 3, "atual": 3 }, "categoriaArma": "III", "protecao": "",
+      "comoAparece": "Por trás de desaparecimentos com padrão: mesma lua, mesmo perfil de vítima, mesmo símbolo riscado por perto.",
+      "comoLuta": "Atrás de uma parede de fiéis, terminando o que começou. O combate é contra o relógio da litania."
+    },
+    "items": [
+      { "name": "Rebanho Fanático", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Litania que Enfraquece", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Nada Sem o Ídolo", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — separado do ícone do culto, seu poder míngua." } }
+    ]
+  },
+  {
+    "name": "Bruxa do Conjunto Habitacional",
+    "system": {
+      "porte": "Adversário à Altura", "vitalidade": { "max": 4, "atual": 4 }, "categoriaArma": "II", "protecao": "",
+      "comoAparece": "A senhora prestativa do bloco C. Todo mundo deve um favor a ela — e ela cobra.",
+      "comoLuta": "Não luta: já lutou. A praga foi lançada semana passada; o grupo só está descobrindo agora."
+    },
+    "items": [
+      { "name": "Pragas Lançadas à Distância", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Olhos em Cada Vizinho", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Território Enfeitiçado", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Presa aos Próprios Fetiches", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — destrua os amuletos escondidos e o poder desaba." } }
+    ]
+  },
+  {
+    "name": "Zumbi Recém-Erguido",
+    "system": {
+      "porte": "Capanga", "vitalidade": { "max": 1, "atual": 1 }, "categoriaArma": "II", "protecao": "",
+      "comoAparece": "Raramente sozinho — e sempre a serviço de alguém. Zumbi é sintoma; o necromante é a doença.",
+      "comoLuta": "Em massa (use a regra de Bando). Ignora ferimentos que parariam um vivo."
+    },
+    "items": [
+      { "name": "Não Sente Dor", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Agarra e Não Solta", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Lento e Previsível", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza." } }
+    ]
+  },
+  {
+    "name": "Espectro Vingativo",
+    "system": {
+      "porte": "Ameaça", "vitalidade": { "max": 2, "atual": 2 }, "categoriaArma": "II", "protecao": "",
+      "comoAparece": "Temperatura caindo, eletrônicos falhando, e a mesma silhueta no mesmo horário — sempre onde a injustiça aconteceu.",
+      "comoLuta": "Aparece e some, mira quem carrega culpa. Sem resolver (ou destruir) a âncora, o combate é só fuga organizada."
+    },
+    "items": [
+      { "name": "Incorpóreo", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Atravessa Paredes", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Preso ao Objeto da Morte", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — armas comuns não o ferem; destrua ou consagre a âncora." } }
+    ]
+  },
+  {
+    "name": "Cobrador Férico",
+    "system": {
+      "porte": "Adversário à Altura", "vitalidade": { "max": 3, "atual": 3 }, "categoriaArma": "III", "protecao": "",
+      "comoAparece": "Elegante demais para o bairro, sorridente demais para a hora. Traz um contrato que alguém assinou.",
+      "comoLuta": "Primeiro pela palavra. Depois, entre ilusões: metade dos golpes do grupo acerta um reflexo."
+    },
+    "items": [
+      { "name": "Glamour que Confunde", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Sempre Sabe Onde o Devedor Está", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Letra do Contrato", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Ferro Frio o Queima", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza." } }
+    ]
+  },
+  {
+    "name": "Diabrete de Contrato",
+    "system": {
+      "porte": "Capanga", "vitalidade": { "max": 1, "atual": 1 }, "categoriaArma": "I", "protecao": "",
+      "comoAparece": "Atrás de pequenas tragédias em série: o freio que falha, o contrato que some, o incêndio \"elétrico\".",
+      "comoLuta": "Não luta — atrapalha. É mais útil capturado do que morto: diabretes sabem para quem trabalham."
+    },
+    "items": [
+      { "name": "Pequeno e Escorregadio", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Semeia Infortúnios", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Covarde Fundamental", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — qualquer demonstração de força o faz negociar." } }
+    ]
+  },
+  {
+    "name": "Sanguessuga do Mercado",
+    "system": {
+      "porte": "Adversário à Altura", "vitalidade": { "max": 4, "atual": 4 }, "categoriaArma": "III", "protecao": "",
+      "comoAparece": "No topo do prédio que comprou com o dinheiro de três vidas passadas. Oferece emprego, patrocínio, eternidade.",
+      "comoLuta": "Por procuração — advogados, seguranças, crias. Se forçado ao corpo a corpo, o terno esconde um predador de duzentos anos."
+    },
+    "items": [
+      { "name": "Fascínio Predatório", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Recursos de Sobra", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Séculos de Paciência", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "As Regras da Hospitalidade", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — não entra sem convite, e um convite revogado o expulsa." } }
+    ]
+  },
+  {
+    "name": "Corpo-Seco",
+    "system": {
+      "porte": "Adversário à Altura", "vitalidade": { "max": 4, "atual": 4 }, "categoriaArma": "III", "protecao": "Pele como couro velho (−1 contra lâminas e impacto)",
+      "comoAparece": "O folclore diz que foi gente ruim demais para a terra aceitar. Agora vive nas árvores do parque velho, nos vãos do viaduto — e desce quando escurece.",
+      "comoLuta": "Emboscada de cima, força bruta, e uma resistência anormal a tudo que não seja sagrado."
+    },
+    "items": [
+      { "name": "A Terra o Rejeitou", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Fedor que Anuncia", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Arde ao Ser Benzido", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — água benta, oração e solo consagrado queimam-no de verdade." } }
+    ]
+  },
+  {
+    "name": "Gólem de Concreto",
+    "system": {
+      "porte": "Colosso", "vitalidade": { "max": 5, "atual": 5 }, "categoriaArma": "III", "protecao": "Corpo de concreto (−1 contra tudo, exceto contra a fraqueza)",
+      "descricao": "Categoria IV se arremessar estrutura.",
+      "comoAparece": "Obras embargadas onde operários somem, e uma estátua que ninguém lembra de ter erguido.",
+      "comoLuta": "Devagar, inexorável e sem malícia — cumpre a ordem gravada nele, literal até o desastre."
+    },
+    "items": [
+      { "name": "Feito da Própria Cidade", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Imparável em Linha Reta", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "O Sigilo na Nuca", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — apagar ou corromper a inscrição que o anima o desliga." } }
+    ]
+  },
+  {
+    "name": "Fugitivo do Programa",
+    "system": {
+      "porte": "Ameaça", "vitalidade": { "max": 2, "atual": 2 }, "categoriaArma": "III", "protecao": "",
+      "comoAparece": "Metade vítima, metade arma. O Programa o quer de volta — e quem o ajudar entra na mesma lista.",
+      "comoLuta": "Rápido e econômico, sempre perto da rota de fuga. Não quer matar: quer continuar livre."
+    },
+    "items": [
+      { "name": "Reflexos Aprimorados", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Sente Campos Eletrônicos", "type": "tag", "system": { "polaridade": "positiva", "origem": "caracteristica" } },
+      { "name": "Manutenção Atrasada", "type": "tag", "system": { "polaridade": "negativa", "origem": "caracteristica", "descricao": "Fraqueza — os implantes falham sob dano elétrico ou interferência." } }
+    ]
+  }
+]
