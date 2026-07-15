@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis deste sistema serão documentadas aqui.
 
+## [0.1.2] — 2026-07-15
+
+### Corrigido
+- Corrige a ordem das regras em `.gitattributes` (a genérica `* text=auto` vinha depois da específica `packs/**/* -text` e a sobrescrevia, então o `-text` nunca era aplicado de verdade). Esse era o bug real por trás dos dropdowns de Ancestralidade/Arquétipo/Profissão/Trauma aparecerem vazios: o `git archive` convertia `\n` em `\r\n` dentro do arquivo interno `CURRENT` do LevelDB (de 16 para 17 bytes), fazendo o Foundry procurar um arquivo de manifesto que não existia e tratar o compêndio como vazio. Compêndios recompilados e verificados byte a byte após a correção.
+
 ## [0.1.1] — 2026-07-15
 
 ### Corrigido
