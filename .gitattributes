@@ -1,6 +1,8 @@
+* text=auto eol=lf
+
 # Os pacotes de compêndio (LevelDB) contêm arquivos binários/sensíveis a byte
 # (CURRENT, LOCK, MANIFEST-*, *.ldb, *.log) — nunca deixe o Git normalizar
-# quebras de linha neles, ou o Foundry falha em abrir o banco.
+# quebras de linha neles, ou o Foundry falha em abrir o banco. Esta regra vem
+# DEPOIS da genérica acima de propósito: no .gitattributes, a última regra
+# que casar com o caminho é a que vale.
 packs/**/* -text -diff
-
-* text=auto eol=lf
