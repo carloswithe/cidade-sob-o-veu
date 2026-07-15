@@ -44,16 +44,19 @@ cidade-sob-o-veu/
 
 ## Compilando os compêndios
 
-Os compêndios são versionados como **JSON legível** em `packs/_source/` (um array por pacote) e compilados para o formato LevelDB que o Foundry espera. Isso não foi executado neste ambiente de desenvolvimento por falta de Node.js instalado — rode localmente antes do primeiro uso ou de cada release:
+Os compêndios são versionados de duas formas:
+
+- `packs/_source/*.json` — **fonte legível**, um array por pacote, é o que você edita;
+- `packs/*.db/` — **compilado** (LevelDB), é o que o Foundry realmente carrega. Já está gerado e commitado neste repositório, pronto para uso — não precisa rodar nada antes do primeiro `Install System`.
+
+Se você editar qualquer entrada de compêndio (uma Ancestralidade, um Adversário, etc.), edite o JSON em `packs/_source/` e recompile:
 
 ```bash
 npm install
 npm run build:packs
 ```
 
-Isso lê cada `packs/_source/<nome>.json` e gera `packs/<nome>.db/`. Depois de compilar, `packs/*.db` deve ser commitado normalmente — são os pacotes que o Foundry carrega.
-
-Se editar qualquer entrada de compêndio (uma Ancestralidade, um Adversário, etc.), edite o JSON em `packs/_source/` e rode `npm run build:packs` de novo — nunca edite o `.db` compilado diretamente.
+Isso lê cada `packs/_source/<nome>.json` e regenera `packs/<nome>.db/`. O script também confere, lendo o pacote de volta, que o número de documentos compilados bate com o de entradas na fonte — nunca edite o `.db` compilado diretamente.
 
 ## Publicando uma nova versão
 
