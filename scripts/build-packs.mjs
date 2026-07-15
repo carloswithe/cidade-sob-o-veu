@@ -10,6 +10,7 @@
  *   npm run build:packs
  */
 import { compilePack } from "@foundryvtt/foundryvtt-cli";
+import { ClassicLevel } from "classic-level";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -78,9 +79,11 @@ function itemSystemFor(itemType, raw) {
 function toDocument(raw, def) {
   if (def.docType === "Actor") {
     const doc = baseFields(raw.name, raw.type ?? def.actorType, def.img);
+    doc._key = `!actors!${doc._id}`;
     doc.system = raw.system ?? {};
     doc.items = (raw.items ?? []).map((it) => {
       const itemDoc = baseFields(it.name, it.type, "icons/svg/item-bag.svg");
+      itemDoc._key = `!actors.items!${doc._id}.${itemDoc._id}`;
       itemDoc.system = it.system ?? {};
       return itemDoc;
     });
@@ -88,6 +91,7 @@ function toDocument(raw, def) {
   }
 
   const doc = baseFields(raw.name, def.itemType, def.img);
+  doc._key = `!items!${doc._id}`;
   doc.system = itemSystemFor(def.itemType, raw);
   return doc;
 }
@@ -109,6 +113,13 @@ async function buildPack(def) {
   const destPath = path.join(OUT_DIR, `${def.pack}.db`);
   fs.rmSync(destPath, { recursive: true, force: true });
   await compilePack(tmpPackDir, destPath, { yaml: false });
+
+  const db = new ClassicLevel(destPath, { keyEncoding: "utf8", valueEncoding: "json" });
+  const primaryKeys = (await db.keys().all()).filter((k) => !k.split("!")[1]?.includes("."));
+  await db.close();
+  if (primaryKeys.length !== raw.length) {
+    throw new Error(`${def.pack}: esperava ${raw.length} documentos primários, mas o pacote compilado tem ${primaryKeys.length}.`);
+  }
 
   console.log(`✔ ${def.pack} (${raw.length} entradas) → packs/${def.pack}.db`);
 }
