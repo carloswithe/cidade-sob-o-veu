@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis deste sistema serão documentadas aqui.
 
+## [0.1.1] — 2026-07-15
+
+### Corrigido
+- Adicionado `template.json` declarando os tipos de Actor (`personagem`, `adversario`, `lendario`) e Item (`tag`, `arquetipo`, `ancestralidade`, `profissao`, `trauma`, `mitem`). Sem ele, o Foundry não sabia que tipos existiam e a criação de qualquer Actor falhava com `DataModelValidationError: type: may not be undefined` — o registro em `CONFIG.Actor.dataModels` via código dá o *schema*, mas o `template.json` é o que declara a *lista de tipos* em si.
+
 ## [0.1.0] — 2026-07-15
 
 ### Adicionado

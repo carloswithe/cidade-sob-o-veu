@@ -1,0 +1,17 @@
+{
+  "Actor": {
+    "types": ["personagem", "adversario", "lendario"],
+    "personagem": {},
+    "adversario": {},
+    "lendario": {}
+  },
+  "Item": {
+    "types": ["tag", "arquetipo", "ancestralidade", "profissao", "trauma", "mitem"],
+    "tag": {},
+    "arquetipo": {},
+    "ancestralidade": {},
+    "profissao": {},
+    "trauma": {},
+    "mitem": {}
+  }
+}
