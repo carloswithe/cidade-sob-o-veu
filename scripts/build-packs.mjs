@@ -11,6 +11,7 @@
  */
 import { compilePack } from "@foundryvtt/foundryvtt-cli";
 import { ClassicLevel } from "classic-level";
+import Datastore from "nedb-promises";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -20,6 +21,12 @@ const ROOT = path.resolve(__dirname, "..");
 const SOURCE_DIR = path.join(ROOT, "packs", "_source");
 const OUT_DIR = path.join(ROOT, "packs");
 const TMP_DIR = path.join(SOURCE_DIR, ".tmp");
+
+// NEDB=1 npm run build:packs → compila no formato legado NeDB (um arquivo por
+// pacote) em vez do LevelDB padrão (uma pasta por pacote). Usado como
+// alternativa em hospedagens onde o armazenamento não lida bem com o
+// LevelDB (relatado em algumas instâncias do Forge).
+const USE_NEDB = process.env.NEDB === "1";
 
 const ID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 function randomID(length = 16) {
@@ -112,16 +119,22 @@ async function buildPack(def) {
 
   const destPath = path.join(OUT_DIR, `${def.pack}.db`);
   fs.rmSync(destPath, { recursive: true, force: true });
-  await compilePack(tmpPackDir, destPath, { yaml: false });
+  await compilePack(tmpPackDir, destPath, { yaml: false, nedb: USE_NEDB });
 
-  const db = new ClassicLevel(destPath, { keyEncoding: "utf8", valueEncoding: "json" });
-  const primaryKeys = (await db.keys().all()).filter((k) => !k.split("!")[1]?.includes("."));
-  await db.close();
-  if (primaryKeys.length !== raw.length) {
-    throw new Error(`${def.pack}: esperava ${raw.length} documentos primários, mas o pacote compilado tem ${primaryKeys.length}.`);
+  let primaryCount;
+  if (USE_NEDB) {
+    const db = Datastore.create(destPath);
+    primaryCount = (await db.find({})).length;
+  } else {
+    const db = new ClassicLevel(destPath, { keyEncoding: "utf8", valueEncoding: "json" });
+    primaryCount = (await db.keys().all()).filter((k) => !k.split("!")[1]?.includes(".")).length;
+    await db.close();
+  }
+  if (primaryCount !== raw.length) {
+    throw new Error(`${def.pack}: esperava ${raw.length} documentos primários, mas o pacote compilado tem ${primaryCount}.`);
   }
 
-  console.log(`✔ ${def.pack} (${raw.length} entradas) → packs/${def.pack}.db`);
+  console.log(`✔ ${def.pack} (${raw.length} entradas, ${USE_NEDB ? "NeDB" : "LevelDB"}) → packs/${def.pack}.db`);
 }
 
 async function main() {

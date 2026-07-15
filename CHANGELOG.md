@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis deste sistema serão documentadas aqui.
 
+## [0.1.3] — 2026-07-15
+
+### Alterado (experimental)
+- Compêndios recompilados no formato **NeDB** (um arquivo por pacote) em vez de LevelDB (uma pasta com vários arquivos binários). Tentativa de contornar um relato de instância no The Forge onde `game.packs` não carregava nenhum compêndio (nem de outros sistemas) mesmo com o system.json e os dados corretos e verificados. `scripts/build-packs.mjs` agora aceita `NEDB=1 npm run build:packs` para escolher o formato. Se isso não resolver no Forge, o próximo passo é revisar os logs de servidor da instância.
+
 ## [0.1.2] — 2026-07-15
 
 ### Corrigido
