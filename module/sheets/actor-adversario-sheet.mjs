@@ -19,7 +19,8 @@ export default class ActorAdversarioSheet extends HandlebarsApplicationMixin(Act
       "edit-item": ActorAdversarioSheet.#onEditItem,
       "delete-item": ActorAdversarioSheet.#onDeleteItem,
       "toggle-ativa": ActorAdversarioSheet.#onToggleAtiva,
-      "aplicar-dano-self": ActorAdversarioSheet.#onAplicarDanoSelf
+      "aplicar-dano-self": ActorAdversarioSheet.#onAplicarDanoSelf,
+      "edit-img": ActorAdversarioSheet.#onEditImg
     }
   };
 
@@ -48,6 +49,14 @@ export default class ActorAdversarioSheet extends HandlebarsApplicationMixin(Act
   static async #onRolarTag(event, target) {
     const id = target.closest("[data-item-id]")?.dataset.itemId;
     new CVRollDialog(this.actor, { tagIdsPreMarcadas: id ? [id] : [] }).render(true);
+  }
+
+  static async #onEditImg() {
+    new FilePicker({
+      type: "image",
+      current: this.actor.img,
+      callback: (path) => this.actor.update({ img: path })
+    }).render(true);
   }
 
   static async #onToggleVitalidade(event, target) {

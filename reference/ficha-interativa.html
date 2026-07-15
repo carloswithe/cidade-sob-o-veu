@@ -14,22 +14,13 @@
 *{box-sizing:border-box; margin:0; padding:0;}
 body{background:var(--noite); color:var(--veu); font-family:'Lora',serif; font-size:15px; line-height:1.5;
   background-image:radial-gradient(ellipse 60% 40% at 70% -10%, rgba(139,92,246,.14), transparent 60%);}
-.wrap{max-width:1060px; margin:0 auto; padding:28px 20px 80px;}
+.wrap{max-width:1060px; margin:0 auto; padding:24px 20px 60px;}
 .mono{font-family:'Space Mono',monospace;}
 
-/* ===== Fio do Véu ===== */
-.fio{height:2px; margin:26px 0 22px; background:
-  linear-gradient(90deg, var(--ritual), var(--neon) 70%, transparent 70%),
-  repeating-linear-gradient(90deg, var(--neon) 0 5px, transparent 5px 12px);
-  background-size:70% 2px, 100% 2px; background-repeat:no-repeat, no-repeat;
-  -webkit-mask-image:linear-gradient(90deg, #000 60%, transparent 99%); mask-image:linear-gradient(90deg,#000 60%, transparent 99%);}
-
-/* ===== Cabeçalho ===== */
-header{display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:14px;
-  border-bottom:2px solid var(--ritual); padding-bottom:16px;}
-.h-title h1{font-family:'Unbounded'; font-weight:600; font-size:24px; letter-spacing:.1em; text-transform:uppercase;}
-.h-title .sig{color:var(--neon); margin-right:10px;}
-.h-title .sub{font-family:'Space Mono'; font-size:11px; letter-spacing:.28em; color:var(--neon); text-transform:uppercase; margin-top:6px;}
+/* ===== Barra superior ===== */
+.topbar{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:18px;}
+.brand{font-family:'Unbounded'; font-weight:600; font-size:15px; letter-spacing:.06em; text-transform:uppercase; color:var(--lilas);}
+.brand .sig{color:var(--neon); margin-right:8px;}
 .toolbar{display:flex; gap:8px; flex-wrap:wrap;}
 button{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
   background:var(--concreto); color:var(--veu); border:1px solid var(--neon); padding:8px 12px; cursor:pointer;}
@@ -38,15 +29,82 @@ button.ghost{border-color:var(--nevoa); color:var(--nevoa);}
 button.ghost:hover{background:var(--concreto2); color:var(--veu);}
 button.mini{padding:4px 8px; font-size:10px;}
 
-/* ===== Blocos ===== */
-section.bloco{border:1px solid #38304a; margin-top:22px; background:rgba(28,24,36,.55);}
-section.bloco>.tit{background:var(--ritual); padding:9px 14px; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
-section.bloco>.tit h2{font-family:'Unbounded'; font-weight:400; font-size:13px; letter-spacing:.18em; text-transform:uppercase;}
-section.bloco>.tit .ref{font-family:'Space Mono'; font-size:10px; letter-spacing:.12em; color:var(--lilas); text-transform:uppercase;}
-section.bloco>.corpo{padding:16px 16px 18px;}
-.hint{font-family:'Space Mono'; font-size:10.5px; letter-spacing:.04em; color:var(--nevoa); text-transform:uppercase; margin:2px 0 10px;}
+/* ===== Ficha: moldura ===== */
+.ficha{border:1px solid #38304a; background:rgba(28,24,36,.4);}
 
-/* ===== Campos ===== */
+/* ===== Zona fixa ===== */
+.zona-fixa{padding:18px 20px 16px; border-bottom:2px solid var(--ritual);}
+.topo{display:flex; gap:20px; align-items:stretch;}
+
+.retrato{
+  position:relative; width:132px; height:132px; flex:none; cursor:pointer;
+  border:1px solid var(--neon); background:var(--concreto) center/cover no-repeat;
+}
+.retrato.vazio{
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="%231C1824"/><circle cx="100" cy="78" r="34" fill="%2338304a"/><path d="M40 175 Q100 118 160 175 Z" fill="%2338304a"/></svg>');
+}
+.retrato .overlay{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+  background:rgba(11,10,16,0); opacity:0; transition:.15s;
+  font-family:'Space Mono'; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; text-align:center; padding:8px;
+}
+.retrato:hover .overlay{background:rgba(11,10,16,.78); opacity:1;}
+.retrato .overlay svg{width:22px; height:22px;}
+.retrato .corner{position:absolute; top:6px; right:6px; width:9px; height:9px; border-top:2px solid var(--neon); border-right:2px solid var(--neon); opacity:.7;}
+
+.identidade{flex:1; min-width:0; display:flex; flex-direction:column; justify-content:space-between; gap:10px;}
+.identidade input.nome{
+  width:100%; background:transparent; border:none; border-bottom:1px solid transparent;
+  font-family:'Unbounded'; font-weight:600; font-size:23px; letter-spacing:.02em; color:var(--veu);
+  padding:2px 0; outline:none;
+}
+.identidade input.nome:focus{border-bottom-color:var(--neon);}
+.sub{font-family:'Space Mono'; font-size:10px; letter-spacing:.22em; color:var(--neon); text-transform:uppercase; margin:2px 0 10px;}
+.campos-id{display:grid; grid-template-columns:1.3fr 1.6fr .7fr; gap:12px;}
+@media(max-width:760px){.campos-id{grid-template-columns:1fr;}}
+.campo label{font-family:'Space Mono'; font-size:9px; letter-spacing:.12em; color:var(--nevoa); text-transform:uppercase; display:block; margin-bottom:3px;}
+
+.rolar-cta{
+  flex:none; width:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  background:linear-gradient(160deg, var(--ritual), #2c1660); border:1px solid var(--neon); cursor:pointer;
+}
+.rolar-cta:hover{background:linear-gradient(160deg, var(--neon), var(--ritual));}
+.rolar-cta .dado-ico{font-size:30px; filter:drop-shadow(0 0 10px rgba(139,92,246,.8));}
+.rolar-cta .txt{font-family:'Unbounded'; font-weight:600; font-size:13px; letter-spacing:.14em; text-transform:uppercase;}
+.rolar-cta .sub2{font-family:'Space Mono'; font-size:8.5px; letter-spacing:.08em; color:var(--lilas); text-transform:uppercase;}
+
+.vitals{display:flex; align-items:center; gap:22px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px solid #2c2638;}
+.vital-grp{display:flex; align-items:center; gap:8px;}
+.vital-grp label{font-family:'Space Mono'; font-size:9px; letter-spacing:.1em; color:var(--neon); text-transform:uppercase; white-space:nowrap;}
+.mini-roll{font-family:'Space Mono'; font-size:9.5px; background:var(--concreto); color:var(--veu); border:1px solid var(--neon); padding:5px 7px; cursor:pointer; line-height:1;}
+.mini-roll:hover{background:var(--ritual);}
+.xpbar{display:flex; gap:3px;}
+.xpbar .q{width:15px; height:15px; border:1px solid var(--ritual); cursor:pointer;}
+.xpbar .q.on{background:var(--neon); border-color:var(--neon);}
+.badge{font-family:'Space Mono'; font-size:10px; color:var(--lilas); letter-spacing:.06em;}
+.token{display:inline-flex; align-items:center; gap:8px; border:1px solid #3d3552; padding:5px 10px; cursor:pointer; user-select:none;}
+.token .los-mini{width:11px; height:11px; border:2px solid var(--neon); transform:rotate(45deg); flex:none;}
+.token.on .los-mini{background:var(--neon); box-shadow:0 0 8px rgba(139,92,246,.7);}
+.token .tk-txt{font-family:'Space Mono'; font-size:9.5px; letter-spacing:.08em; color:var(--nevoa); text-transform:uppercase;}
+.token.on .tk-txt{color:var(--lilas);}
+.token.on{border-color:var(--neon);}
+.vital-tags{margin-left:auto;}
+
+/* ===== Trilha de ferimentos ===== */
+.bloco-fer{padding:14px 20px 16px; border-bottom:1px solid #2c2638;}
+.fer-tit{font-family:'Space Mono'; font-size:9.5px; letter-spacing:.14em; color:var(--nevoa); text-transform:uppercase; margin-bottom:8px;}
+.fer{display:flex; gap:26px; flex-wrap:wrap; justify-content:space-between; padding:6px 4px 0;}
+.fer .item{text-align:center; flex:1; min-width:130px; cursor:pointer; user-select:none;}
+.los{width:34px; height:34px; border:2px solid var(--neon); transform:rotate(45deg); margin:8px auto 16px; transition:.15s; background:transparent;}
+.fer .item.on .los{background:var(--neon); box-shadow:0 0 14px rgba(139,92,246,.7);}
+.fer .nome{font-family:'Unbounded'; font-size:11px; letter-spacing:.14em; text-transform:uppercase;}
+.fer .ef{font-family:'Space Mono'; font-size:10px; color:var(--nevoa); margin-top:4px; line-height:1.45;}
+.fer .item.on .nome{color:var(--lilas);}
+.grid{display:grid; gap:14px;}
+.g2c{grid-template-columns:1fr 1fr;}
+@media(max-width:760px){.g2c{grid-template-columns:1fr;}}
+
+/* ===== Campos genéricos ===== */
 label.lab{font-family:'Space Mono'; font-size:10px; letter-spacing:.14em; color:var(--neon); text-transform:uppercase; display:block; margin-bottom:4px;}
 input[type=text], input[type=number], textarea, select{
   width:100%; background:var(--noite); color:var(--veu); border:1px solid #3d3552; padding:8px 10px;
@@ -54,10 +112,17 @@ input[type=text], input[type=number], textarea, select{
 input:focus, textarea:focus, select:focus{border-color:var(--neon);}
 select{font-family:'Space Mono'; font-size:12.5px;}
 textarea{resize:vertical; min-height:64px;}
-.grid{display:grid; gap:14px;}
-.g3{grid-template-columns:2fr 1.4fr .8fr;}
-.g2c{grid-template-columns:1fr 1fr;}
-@media(max-width:760px){.g3,.g2c{grid-template-columns:1fr;}}
+
+/* ===== Abas ===== */
+.tabs{display:flex; background:var(--concreto2); border-left:1px solid #38304a; border-right:1px solid #38304a; overflow-x:auto;}
+.tab{
+  font-family:'Space Mono'; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap;
+  color:var(--nevoa); background:none; border:none; border-right:1px solid #2c2638; padding:12px 18px; cursor:pointer;}
+.tab:hover{color:var(--veu); background:rgba(139,92,246,.08);}
+.tab.on{color:var(--veu); background:var(--ritual);}
+.painel{display:none; padding:18px 20px 22px; border-left:1px solid #38304a; border-right:1px solid #38304a; border-bottom:1px solid #38304a;}
+.painel.on{display:block;}
+.hint{font-family:'Space Mono'; font-size:10.5px; letter-spacing:.04em; color:var(--nevoa); text-transform:uppercase; margin:2px 0 10px;}
 
 /* ===== Tag rows ===== */
 .tagrow{display:flex; align-items:center; gap:8px; margin-bottom:8px;}
@@ -74,64 +139,63 @@ textarea{resize:vertical; min-height:64px;}
 .chip.neg .s{color:var(--lilas);}
 .chip:not(.neg) .s{color:var(--neon);}
 
-/* ===== Ferimentos (losangos) ===== */
-.fer{display:flex; gap:26px; flex-wrap:wrap; justify-content:space-between; padding:6px 4px 0;}
-.fer .item{text-align:center; flex:1; min-width:130px; cursor:pointer; user-select:none;}
-.los{width:34px; height:34px; border:2px solid var(--neon); transform:rotate(45deg); margin:8px auto 16px; transition:.15s; background:transparent;}
-.fer .item.on .los{background:var(--neon); box-shadow:0 0 14px rgba(139,92,246,.7);}
-.fer .nome{font-family:'Unbounded'; font-size:11px; letter-spacing:.14em; text-transform:uppercase;}
-.fer .ef{font-family:'Space Mono'; font-size:10px; color:var(--nevoa); margin-top:4px; line-height:1.45;}
-.fer .item.on .nome{color:var(--lilas);}
-
-/* estilo de vida */
-.vida{display:grid; grid-template-columns:repeat(6,1fr); gap:8px;}
-@media(max-width:760px){.vida{grid-template-columns:repeat(3,1fr);}}
-.vida .opt{border:1px solid #3d3552; text-align:center; padding:8px 4px; cursor:pointer; user-select:none;}
-.vida .opt .d{font-family:'Space Mono'; font-size:10px; color:var(--neon); display:block;}
-.vida .opt .n{font-family:'Unbounded'; font-size:10px; letter-spacing:.06em; text-transform:uppercase; display:block; margin-top:3px;}
-.vida .opt.on{border-color:var(--neon); background:var(--ritual);}
-
-/* nível/xp */
-.xpbar{display:flex; gap:5px; margin-top:6px;}
-.xpbar .q{width:22px; height:22px; border:1px solid var(--ritual); cursor:pointer;}
-.xpbar .q.on{background:var(--neon); border-color:var(--neon);}
-.badge{font-family:'Space Mono'; font-size:11px; color:var(--lilas); letter-spacing:.06em;}
-
-/* token de sorte */
-.token{display:inline-flex; align-items:center; gap:12px; border:1px solid #3d3552; padding:7px 14px; cursor:pointer; user-select:none; margin-top:6px;}
-.token .los-mini{width:13px; height:13px; border:2px solid var(--neon); transform:rotate(45deg); flex:none;}
-.token.on .los-mini{background:var(--neon); box-shadow:0 0 10px rgba(139,92,246,.7);}
-.token .tk-txt{font-family:'Space Mono'; font-size:10px; letter-spacing:.14em; color:var(--nevoa); text-transform:uppercase;}
-.token.on .tk-txt{color:var(--lilas);}
-.token.on{border-color:var(--neon);}
-
-/* itens */
+/* ===== Itens ===== */
 .item-card{border:1px solid #3d3552; padding:12px; margin-bottom:12px; background:rgba(11,10,16,.5);}
 .item-card .top{display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;}
 .item-card .top .nome{flex:1; min-width:200px;}
 .counter{font-family:'Space Mono'; font-size:11px; color:var(--nevoa); letter-spacing:.08em;}
-.summary{font-family:'Space Mono'; font-size:11.5px; letter-spacing:.08em; color:var(--lilas);}
+
+/* ===== Modal de rolagem ===== */
+.modal-overlay{position:fixed; inset:0; background:rgba(11,10,16,.82); display:none; align-items:flex-start; justify-content:center; padding:5vh 16px; z-index:100; overflow-y:auto;}
+.modal-overlay.on{display:flex;}
+.modal{background:var(--noite); border:1px solid var(--neon); max-width:640px; width:100%; padding:22px;}
+.modal-tit{font-family:'Unbounded'; font-weight:600; font-size:15px; letter-spacing:.08em; text-transform:uppercase; color:var(--lilas); margin-bottom:16px;}
+.roll-cols{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:14px 0;}
+@media(max-width:640px){.roll-cols{grid-template-columns:1fr;}}
+.roll-col{border-left:2px solid var(--nevoa); padding-left:12px; max-height:260px; overflow-y:auto;}
+.roll-col.pos{border-left-color:var(--neon);}
+.roll-col.neg{border-left-color:var(--ritual);}
+.tagcheck{display:flex; align-items:center; gap:7px; font-size:12.5px; margin-bottom:5px; cursor:pointer;}
+.field-inline{display:flex; align-items:center; gap:8px; margin-top:10px;}
+.field-inline label{font-family:'Space Mono'; font-size:9.5px; letter-spacing:.08em; color:var(--nevoa); text-transform:uppercase; white-space:nowrap;}
+.field-inline input{width:64px;}
+.btn-rolar{width:100%; font-family:'Unbounded'; font-size:13px; letter-spacing:.1em; text-transform:uppercase; background:var(--ritual); border:1px solid var(--neon); padding:12px; margin-top:6px;}
+.btn-rolar:hover{background:var(--neon);}
+.resultado-area{margin-top:18px; padding-top:16px; border-top:1px dashed #38304a;}
+.dado-pool{display:flex; gap:22px; margin-bottom:10px;}
+.dado-col{display:flex; flex-direction:column; gap:5px;}
+.dado-label{font-family:'Space Mono'; font-size:9px; letter-spacing:.12em; color:var(--nevoa); text-transform:uppercase;}
+.dado-linha{display:flex; gap:5px;}
+.dado{width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-family:'Space Mono'; font-weight:700; font-size:15px; border:2px solid var(--neon); color:var(--veu);}
+.dado.risco{background:var(--ritual); border-color:var(--ritual);}
+.dado.anulado{opacity:.35; text-decoration:line-through;}
+.resultado-txt{display:flex; align-items:center; gap:12px; padding:8px 10px; font-family:'Unbounded'; font-size:13px; letter-spacing:.06em; text-transform:uppercase; border-left:3px solid var(--neon); background:rgba(139,92,246,.08); margin-bottom:10px;}
+.ampliacoes{font-family:'Space Mono'; font-size:10.5px; color:var(--lilas);}
+.token-ajuste{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.token-ajuste select{width:auto; min-width:110px;}
+.fio-fina{height:1px; background:#38304a; margin:16px 0;}
 
 /* impressão = modo diurno */
 @media print{
   body{background:var(--veu); color:var(--noite); background-image:none; font-size:12px;}
-  .toolbar, button, .hint .noprint, .noprint{display:none !important;}
-  section.bloco{background:#fff; border-color:var(--noite); break-inside:avoid;}
+  .toolbar, .rolar-cta, .modal-overlay, button, .noprint{display:none !important;}
+  .ficha{background:#fff; border-color:var(--noite);}
+  .zona-fixa, .bloco-fer{border-color:var(--noite);}
+  .tabs{display:none !important;}
+  .painel{display:block !important; border-color:var(--noite); break-inside:avoid;}
   input, select, textarea{background:#fff; color:var(--noite); border-color:#aaa;}
   .fer .ef{color:#555;} .hint{color:#666;}
-  label.lab{color:var(--ritual);}
+  label.lab, .campo label{color:var(--ritual);}
   .chip{color:var(--noite);} .chip.neg{color:var(--veu);}
+  .retrato{border-color:var(--noite);}
 }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<header>
-  <div class="h-title">
-    <h1><span class="sig">◈</span>Ficha de Personagem</h1>
-    <div class="sub">Fantasia Urbana Sobrenatural · A Cidade Sob o Véu</div>
-  </div>
+<div class="topbar">
+  <div class="brand"><span class="sig">◈</span>Ficha de Personagem — A Cidade Sob o Véu</div>
   <div class="toolbar">
     <button onclick="exportJSON()">⬇ Salvar (.json)</button>
     <button onclick="document.getElementById('importFile').click()">⬆ Carregar</button>
@@ -139,64 +203,90 @@ textarea{resize:vertical; min-height:64px;}
     <button onclick="window.print()">🖨 Imprimir</button>
     <button class="ghost" onclick="resetAll()">Limpar</button>
   </div>
-</header>
+</div>
 
-<!-- IDENTIDADE -->
-<section class="bloco">
-  <div class="tit"><h2>Identidade</h2><span class="ref">Quem é você sob o véu</span></div>
-  <div class="corpo">
-    <div class="grid g3">
-      <div><label class="lab">Personagem</label><input type="text" id="f_nome" placeholder="Nome do personagem"></div>
-      <div><label class="lab">Jogador(a)</label><input type="text" id="f_jogador"></div>
-      <div><label class="lab">Nível</label>
-        <select id="f_nivel" onchange="rebuildSlots()"></select>
-      </div>
-    </div>
-    <div class="grid g2c" style="margin-top:12px;">
-      <div><label class="lab">Conceito</label><input type="text" id="f_conceito" placeholder="Ex.: legista que vê demais"></div>
-      <div>
-        <label class="lab">XP para o próximo nível <span class="badge" id="xpinfo"></span></label>
-        <div class="xpbar" id="xpbar"></div>
-        <div class="token" id="tokenBox" onclick="toggleToken()" title="Regra opcional (Cap. 1): 1 por sessão · ajusta 1 dado em ±1">
-          <span class="los-mini"></span><span class="tk-txt" id="tkTxt">Token de Sorte · disponível</span>
+<div class="ficha">
+
+  <!-- ZONA FIXA -->
+  <div class="zona-fixa">
+    <div class="topo">
+      <div class="retrato vazio" id="retratoBox" onclick="document.getElementById('retratoFile').click()">
+        <span class="corner"></span>
+        <div class="overlay">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"></rect><circle cx="8.5" cy="10" r="1.6"></circle><path d="M21 15l-5-4-4 3.5-3-2.5-6 5"></path></svg>
+          Clique para<br>trocar o retrato
         </div>
       </div>
+      <input type="file" id="retratoFile" accept="image/*" style="display:none" onchange="onRetratoChange(event)">
+
+      <div class="identidade">
+        <div>
+          <input class="nome" type="text" id="f_nome" placeholder="Nome do personagem">
+          <div class="sub">Fantasia Urbana Sobrenatural · A Cidade Sob o Véu</div>
+        </div>
+        <div class="campos-id">
+          <div class="campo"><label>Conceito</label><input type="text" id="f_conceito" placeholder="Ex.: legista que vê demais"></div>
+          <div class="campo"><label>Jogador(a)</label><input type="text" id="f_jogador"></div>
+          <div class="campo"><label>Nível</label><select id="f_nivel" onchange="rebuildSlots()"></select></div>
+        </div>
+      </div>
+
+      <button class="rolar-cta noprint" onclick="abrirRolagem()">
+        <span class="dado-ico">🎲</span>
+        <span class="txt">Rolar</span>
+        <span class="sub2">Ação vs. Risco</span>
+      </button>
     </div>
-    <div style="margin-top:14px;">
-      <label class="lab">Estilo de Vida (Cap. 7) <button class="mini noprint" onclick="rolarVida()">🎲 rolar 1d20</button> <span class="badge" id="vidaRoll"></span></label>
-      <div class="vida" id="vidaGrid"></div>
+
+    <div class="vitals">
+      <div class="vital-grp">
+        <label>Estilo de Vida</label>
+        <select id="f_vida" onchange="onVidaSelect()" style="width:auto; min-width:130px;"></select>
+        <button class="mini-roll noprint" onclick="rolarVida()" title="Rolar 1d20">🎲</button>
+      </div>
+      <div class="vital-grp">
+        <label>XP <span class="badge" id="xpinfo"></span></label>
+        <div class="xpbar" id="xpbar"></div>
+      </div>
+      <div class="vital-grp">
+        <div class="token" id="tokenBox" onclick="toggleToken()" title="Regra opcional (Cap. 1): 1 por sessão · ajusta 1 dado em ±1">
+          <span class="los-mini"></span><span class="tk-txt" id="tkTxt"></span>
+        </div>
+      </div>
+      <div class="vital-grp vital-tags"><span class="summary badge mono" id="resumo"></span></div>
     </div>
   </div>
-</section>
 
-<!-- FERIMENTOS -->
-<section class="bloco">
-  <div class="tit"><h2>Trilha de Ferimentos</h2><span class="ref">Clique nos losangos · Cap. 8</span></div>
-  <div class="corpo">
+  <!-- TRILHA DE FERIMENTOS -->
+  <div class="bloco-fer">
+    <div class="fer-tit">Trilha de Ferimentos</div>
     <div class="fer" id="ferGrid"></div>
-    <div class="grid g2c" style="margin-top:8px;">
+    <div class="grid g2c" style="margin-top:10px;">
       <div><label class="lab">Ferimentos atuais (nomeie-os)</label><input type="text" id="f_ferimentos" placeholder="Ex.: Estilhaços nas Costas"></div>
       <div><label class="lab">Proteção em uso (−1 dano se adequada)</label><input type="text" id="f_protecao" placeholder="Ex.: colete balístico"></div>
     </div>
   </div>
-</section>
 
-<!-- BLOCO 1 -->
-<section class="bloco">
-  <div class="tit"><h2>① Características</h2><span class="ref">Cap. 3 · +1 qualidade a cada nível par</span></div>
-  <div class="corpo">
+  <!-- ABAS -->
+  <div class="tabs noprint" id="tabs">
+    <button class="tab on" data-tab="carac">① Características</button>
+    <button class="tab" data-tab="anc">② Ancestralidade</button>
+    <button class="tab" data-tab="arq">③ Arquétipo</button>
+    <button class="tab" data-tab="ante">④ Antecedente</button>
+    <button class="tab" data-tab="itens">Equipamento &amp; Itens</button>
+  </div>
+
+  <!-- BLOCO 1 -->
+  <div class="painel on" data-panel="carac">
     <div class="hint">Qualidades <span id="qCount" class="counter"></span></div>
     <div id="qualidades"></div>
-    <div class="hint" style="margin-top:14px;">Defeitos · novos defeitos podem vir da quase morte (Cap. 8)</div>
+    <div class="hint" style="margin-top:14px;">Defeitos · novos defeitos podem vir da quase morte</div>
     <div id="defeitos"></div>
     <button class="mini noprint" onclick="addDefeito()">+ adicionar defeito (quase morte)</button>
   </div>
-</section>
 
-<!-- BLOCO 2 -->
-<section class="bloco">
-  <div class="tit"><h2>② Ancestralidade</h2><span class="ref">Cap. 4 · definida só na criação</span></div>
-  <div class="corpo">
+  <!-- BLOCO 2 -->
+  <div class="painel" data-panel="anc">
     <div class="grid g2c">
       <div>
         <label class="lab">Ancestralidade <button class="mini noprint" onclick="rolarAncestral()">🎲 1d8</button></label>
@@ -206,12 +296,9 @@ textarea{resize:vertical; min-height:64px;}
     </div>
     <div id="ancTags" style="margin-top:12px;"></div>
   </div>
-</section>
 
-<!-- BLOCO 3 -->
-<section class="bloco">
-  <div class="tit"><h2>③ Arquétipo</h2><span class="ref">Cap. 5 · +1 especialidade e +1 vício por nível</span></div>
-  <div class="corpo">
+  <!-- BLOCO 3 -->
+  <div class="painel" data-panel="arq">
     <div style="max-width:420px;">
       <label class="lab">Arquétipo <button class="mini noprint" onclick="rolarArq()">🎲 1d10</button></label>
       <select id="f_arq" onchange="rebuildSlots()"></select>
@@ -221,12 +308,9 @@ textarea{resize:vertical; min-height:64px;}
     <div class="hint" style="margin-top:14px;">Vícios e Limitações <span id="vCount" class="counter"></span></div>
     <div id="vicios"></div>
   </div>
-</section>
 
-<!-- BLOCO 4 -->
-<section class="bloco">
-  <div class="tit"><h2>④ Antecedente</h2><span class="ref">Cap. 2 e 9 · + ganhos narrativos (Cap. 6)</span></div>
-  <div class="corpo">
+  <!-- BLOCO 4 -->
+  <div class="painel" data-panel="ante">
     <div style="max-width:420px;">
       <label class="lab">Profissão <button class="mini noprint" onclick="rolarProf()">🎲 1d100</button></label>
       <select id="f_prof"></select>
@@ -238,30 +322,49 @@ textarea{resize:vertical; min-height:64px;}
     <div id="traumas"></div>
     <button class="mini noprint" onclick="addTrauma()">+ adicionar trauma</button>
   </div>
-</section>
 
-<!-- ITENS -->
-<section class="bloco">
-  <div class="tit"><h2>Itens Mágicos ou Aprimorados</h2><span class="ref">Cap. 7 · nível = nº de dádivas</span></div>
-  <div class="corpo">
+  <!-- EQUIPAMENTO & ITENS -->
+  <div class="painel" data-panel="itens">
+    <div class="hint">Itens Mágicos ou Aprimorados · nível = nº de dádivas</div>
     <div id="itens"></div>
     <button class="mini noprint" onclick="addItem()">+ adicionar item</button>
+
+    <div class="grid g2c" style="margin-top:20px;">
+      <div><label class="lab">Equipamento &amp; bens</label><textarea id="f_equip" rows="4"></textarea></div>
+      <div><label class="lab">Aliados, inimigos &amp; notas</label><textarea id="f_notas" rows="4"></textarea></div>
+    </div>
   </div>
-</section>
 
-<!-- EQUIPAMENTO / NOTAS -->
-<section class="bloco">
-  <div class="tit"><h2>Equipamento, Bens &amp; Notas</h2><span class="ref">Coerente com o estilo de vida · a cidade lembra</span></div>
-  <div class="corpo grid g2c">
-    <div><label class="lab">Equipamento &amp; bens</label><textarea id="f_equip" rows="4"></textarea></div>
-    <div><label class="lab">Aliados, inimigos &amp; notas</label><textarea id="f_notas" rows="4"></textarea></div>
+</div>
+</div>
+
+<!-- MODAL DE ROLAGEM -->
+<div class="modal-overlay" id="rollModal">
+  <div class="modal">
+    <div class="modal-tit">🎲 Rolar — Ação vs. Risco</div>
+    <label class="lab">Ação tentada</label>
+    <input type="text" id="rollFlavor" placeholder="Ex.: saltar do prédio para o outro">
+
+    <div class="roll-cols">
+      <div class="roll-col pos">
+        <div class="hint">Tags positivas (dado de Ação) — 1 dado base sempre incluso</div>
+        <div id="rollTagsPos"></div>
+        <div class="field-inline"><label>Extras da cena</label><input type="number" id="rollExtraAcao" value="0" min="0" max="6"></div>
+      </div>
+      <div class="roll-col neg">
+        <div class="hint">Tags negativas / riscos (dado de Risco)</div>
+        <div id="rollTagsNeg"></div>
+        <div class="field-inline"><label>Extras da cena</label><input type="number" id="rollExtraRisco" value="0" min="0" max="6"></div>
+      </div>
+    </div>
+
+    <button class="btn-rolar" onclick="executarRolagem()">🎲 Rolar</button>
+
+    <div class="resultado-area" id="resultadoArea" style="display:none"></div>
+
+    <div class="fio-fina"></div>
+    <button class="mini ghost" onclick="fecharRolagem()">Fechar</button>
   </div>
-</section>
-
-<div class="fio"></div>
-<div class="summary" id="resumo"></div>
-<p class="hint" style="margin-top:10px;">◈ A regra de ouro: toda tag vale em algumas cenas — não em todas. Tags negativas não são punição: são convites de cena.</p>
-
 </div>
 
 <script>
@@ -312,13 +415,13 @@ const FER = [["1 · Leve","só narrativo · sara com uma cena de descanso"],["2 
 const CUSTOM = "✎ Outra (personalizada)…";
 
 /* =================== ESTADO =================== */
-let S = { extraDef:0, apr:1, tra:1, itens:[] , fer:0 };
+let S = { extraDef:0, apr:1, tra:1, itens:[], fer:0, retrato:null };
 const $ = id => document.getElementById(id);
 const dado = n => 1 + Math.floor(Math.random()*n);
 
 /* =================== CONSTRUÇÃO DE SELECTS =================== */
 function optCustom(){ const o=document.createElement('option'); o.value="__custom"; o.textContent=CUSTOM; return o; }
-function selCarac(tipo){ // tipo 'q' ou 'd' — optgroups por grupo
+function selCarac(tipo){
   const s=document.createElement('select');
   s.append(new Option("— escolha ou role —",""));
   for(const g in CAR){
@@ -354,6 +457,31 @@ function tagRow(container, cls, sel, extras){
   return row;
 }
 
+/* =================== ABAS =================== */
+function initTabs(){
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('.painel').forEach(x=>x.classList.remove('on'));
+      t.classList.add('on');
+      document.querySelector(`.painel[data-panel="${t.dataset.tab}"]`).classList.add('on');
+    });
+  });
+}
+
+/* =================== RETRATO =================== */
+function onRetratoChange(ev){
+  const f=ev.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ S.retrato=r.result; applyRetrato(); };
+  r.readAsDataURL(f);
+}
+function applyRetrato(){
+  const box=$('retratoBox');
+  if(S.retrato){ box.style.backgroundImage=`url('${S.retrato}')`; box.classList.remove('vazio'); }
+  else { box.style.backgroundImage=''; box.classList.add('vazio'); }
+}
+
 /* =================== SLOTS DINÂMICOS =================== */
 function keepValues(container){ return [...container.querySelectorAll('select,input[type=text]')].map(e=>e.value); }
 function restoreValues(container, vals){
@@ -362,7 +490,6 @@ function restoreValues(container, vals){
 }
 function rebuildSlots(){
   const lvl = +$('f_nivel').value || 1;
-  // qualidades: 3 + níveis pares
   const q=$('qualidades'); const qv=keepValues(q); q.innerHTML='';
   const nQ = 3 + Math.floor(lvl/2);
   for(let i=0;i<nQ;i++){
@@ -372,14 +499,12 @@ function rebuildSlots(){
   }
   restoreValues(q,qv);
   $('qCount').textContent='('+nQ+' no nível '+lvl+')';
-  // defeitos: 3 + extras
   const d=$('defeitos'); const dv=keepValues(d); d.innerHTML='';
   for(let i=0;i<3+S.extraDef;i++){
     const tag=document.createElement('span'); tag.className='lvl'; tag.textContent= i<3?'CRIAÇÃO':'QUASE MORTE';
     tagRow(d,'neg',selCarac('d'),[tag]);
   }
   restoreValues(d,dv);
-  // arquétipo
   const arq=$('f_arq').value;
   const e=$('especialidades'); const ev=keepValues(e); e.innerHTML='';
   const v=$('vicios'); const vv=keepValues(v); v.innerHTML='';
@@ -448,25 +573,22 @@ function buildFer(){
   const g=$('ferGrid'); g.innerHTML='';
   FER.forEach((f,i)=>{
     const it=document.createElement('div'); it.className='item'+(S.fer>i?' on':'');
-    it.innerHTML='<div class="los"></div><div class="nome">'+f[0]+'</div><div class="ef">'+f[1]+'</div>';
+    it.innerHTML='<div class="los"></div><div class="nome">'+f[0].split(' · ')[1]+'</div><div class="ef">'+f[1]+'</div>';
     it.onclick=()=>{ S.fer = (S.fer===i+1)? i : i+1; buildFer(); };
     g.append(it);
   });
 }
 
 /* Estilo de vida */
-function buildVida(sel){
-  const g=$('vidaGrid'); g.innerHTML='';
-  VIDA.forEach((v,i)=>{
-    const o=document.createElement('div'); o.className='opt'+(S.vida===i?' on':'');
-    o.innerHTML='<span class="d">'+v[0]+'</span><span class="n">'+v[1]+'</span>';
-    o.onclick=()=>{ S.vida=i; buildVida(); };
-    g.append(o);
-  });
+function buildVidaSelect(){
+  const s=$('f_vida'); s.innerHTML='';
+  VIDA.forEach((v,i)=>s.append(new Option(v[1], i)));
+  s.value = S.vida ?? 2;
 }
+function onVidaSelect(){ S.vida = +$('f_vida').value; }
 function rolarVida(){ const r=dado(20);
   const i = r<=4?0 : r<=8?1 : r<=12?2 : r<=16?3 : r<=19?4 : 5;
-  S.vida=i; buildVida(); $('vidaRoll').textContent='→ rolou '+r+': '+VIDA[i][1];
+  S.vida=i; $('f_vida').value=i;
 }
 function rolarAncestral(){ const ks=Object.keys(ANC); const r=dado(8); $('f_ancestral').value=ks[r-1]; renderAncestral(); }
 function rolarArq(){ const ks=Object.keys(ARQ); const r=dado(10); $('f_arq').value=ks[r-1]; rebuildSlots(); }
@@ -476,7 +598,7 @@ function rolarProf(){ const r=dado(100); $('f_prof').value=PROF[r-1]; refreshRes
 function renderToken(){
   const b=$('tokenBox');
   b.classList.toggle('on', !!S.token);
-  $('tkTxt').textContent = S.token ? 'Token de Sorte · disponível' : 'Token de Sorte · gasto (renova na próxima sessão)';
+  $('tkTxt').textContent = S.token ? 'Token de Sorte · disponível' : 'Token de Sorte · gasto';
 }
 function toggleToken(){ S.token=!S.token; renderToken(); }
 
@@ -485,7 +607,7 @@ function buildXP(){
   const b=$('xpbar'); b.innerHTML='';
   for(let i=0;i<10;i++){ const q=document.createElement('div'); q.className='q'+(S.xp>i?' on':'');
     q.onclick=()=>{ S.xp = (S.xp===i+1)? i : i+1; buildXP(); }; b.append(q); }
-  $('xpinfo').textContent = S.xp>=10 ? '· 10/10 — suba de nível!' : '· '+S.xp+'/10';
+  $('xpinfo').textContent = S.xp>=10 ? '10/10 — suba de nível!' : S.xp+'/10';
 }
 
 /* Itens */
@@ -523,7 +645,7 @@ function addItem(data){
 }
 
 /* Resumo */
-function countFilled(container, posSel, negSel){
+function countFilled(container){
   let p=0,n=0;
   container.querySelectorAll('.tagrow.pos').forEach(r=>{ const e=r.querySelector('select,input[type=text]');
     const v = r.querySelector('select') ? (r.querySelector('select').value==='__custom' ? r.querySelector('input')?.value : r.querySelector('select').value) : e.value;
@@ -538,7 +660,111 @@ function refreshResumo(){
   [['qualidades'],['defeitos'],['especialidades'],['vicios'],['aprendizados'],['traumas'],['itens']].forEach(([id])=>{
     const [a,b]=countFilled($(id)); p+=a; n+=b; });
   const anc=$('f_ancestral').value; if(ANC[anc]){ p+=2; n+=2; }
-  $('resumo').textContent='◈ TAGS EM JOGO — POSITIVAS: '+p+' · NEGATIVAS: '+n;
+  $('resumo').textContent='◈ +'+p+' / −'+n+' Tags em jogo';
+}
+
+/* =================== ROLADOR — Ação vs. Risco =================== */
+/* Lógica idêntica à do sistema Foundry (module/dice/roller.mjs), portada pura. */
+function resolverAcaoRisco(acaoValores, riscoValores){
+  const vivos = acaoValores.map((_,i)=>i);
+  const anuladoMask = acaoValores.map(()=>false);
+  const anulados = [];
+  const riscoOrdenado = [...riscoValores].sort((a,b)=>b-a);
+  for(const r of riscoOrdenado){
+    let melhorIdx=-1;
+    for(const i of vivos){
+      if(acaoValores[i]<=r && (melhorIdx===-1 || acaoValores[i]>acaoValores[melhorIdx])) melhorIdx=i;
+    }
+    if(melhorIdx!==-1){ anuladoMask[melhorIdx]=true; anulados.push({risco:r, acao:acaoValores[melhorIdx]}); vivos.splice(vivos.indexOf(melhorIdx),1); }
+    else anulados.push({risco:r, acao:null});
+  }
+  const restantes = vivos.map(i=>acaoValores[i]).sort((a,b)=>b-a);
+  if(!restantes.length) return {chave:'falhaCritica', nome:'Falha Crítica', ampliacoes:0, restantes:[], anuladoMask, anulacaoTotal:true};
+  const maior=restantes[0];
+  const seis=restantes.filter(v=>v===6).length;
+  const ampliacoes=Math.max(0, seis-1);
+  const tabela={6:{chave:'espetacular',nome:'Sucesso Espetacular'},5:{chave:'parcial',nome:'Sucesso Parcial'},4:{chave:'parcial',nome:'Sucesso Parcial'},3:{chave:'falhaParcial',nome:'Falha Parcial'},2:{chave:'falhaParcial',nome:'Falha Parcial'},1:{chave:'falhaCritica',nome:'Falha Crítica'}};
+  return {...tabela[maior], ampliacoes, restantes, anuladoMask, anulacaoTotal:false};
+}
+
+let ultimaRolagem = null; // {acaoValores, riscoValores}
+
+function nomeLimpoDeSelect(sel){
+  const txt = sel.selectedOptions[0]?.textContent || '';
+  return txt.replace(/^\d+\.\s*/, '');
+}
+function coletarTagsPreenchidas(){
+  const pos=[], neg=[];
+  document.querySelectorAll('.tagrow.pos').forEach(r=>{
+    const sel=r.querySelector('select'); const inp=r.querySelector('input[type=text]');
+    const v = sel ? (sel.value==='' ? '' : sel.value==='__custom' ? inp?.value : nomeLimpoDeSelect(sel)) : inp?.value;
+    if(v) pos.push(v);
+  });
+  document.querySelectorAll('.tagrow.neg').forEach(r=>{
+    const sel=r.querySelector('select'); const inp=r.querySelector('input[type=text]');
+    const v = sel ? (sel.value==='' ? '' : sel.value==='__custom' ? inp?.value : nomeLimpoDeSelect(sel)) : inp?.value;
+    if(v) neg.push(v);
+  });
+  const anc=$('f_ancestral').value;
+  if(ANC[anc]){ ANC[anc].v.forEach(n=>pos.push(n)); ANC[anc].vu.forEach(n=>neg.push(n)); }
+  return {pos:[...new Set(pos)], neg:[...new Set(neg)]};
+}
+
+function abrirRolagem(){
+  const {pos, neg} = coletarTagsPreenchidas();
+  const posBox=$('rollTagsPos'), negBox=$('rollTagsNeg');
+  posBox.innerHTML = pos.length ? pos.map(n=>`<label class="tagcheck"><input type="checkbox" value="${n.replace(/"/g,'&quot;')}"><span>+ ${n}</span></label>`).join('') : '<p class="hint" style="margin:0;">Nenhuma Tag positiva preenchida ainda.</p>';
+  negBox.innerHTML = neg.length ? neg.map(n=>`<label class="tagcheck"><input type="checkbox" value="${n.replace(/"/g,'&quot;')}"><span>− ${n}</span></label>`).join('') : '<p class="hint" style="margin:0;">Nenhuma Tag negativa preenchida ainda.</p>';
+  $('rollFlavor').value=''; $('rollExtraAcao').value=0; $('rollExtraRisco').value=0;
+  $('resultadoArea').style.display='none'; $('resultadoArea').innerHTML='';
+  $('rollModal').classList.add('on');
+}
+function fecharRolagem(){ $('rollModal').classList.remove('on'); }
+
+function executarRolagem(){
+  const posN = document.querySelectorAll('#rollTagsPos input:checked').length;
+  const negN = document.querySelectorAll('#rollTagsNeg input:checked').length;
+  const extraA = +$('rollExtraAcao').value||0, extraR = +$('rollExtraRisco').value||0;
+  const nAcao = Math.max(1, 1+posN+extraA);
+  const nRisco = Math.max(0, negN+extraR);
+  const acaoValores = Array.from({length:nAcao}, ()=>dado(6));
+  const riscoValores = Array.from({length:nRisco}, ()=>dado(6));
+  ultimaRolagem = {acaoValores, riscoValores};
+  renderizarResultado();
+}
+
+function renderizarResultado(){
+  const {acaoValores, riscoValores} = ultimaRolagem;
+  const res = resolverAcaoRisco(acaoValores, riscoValores);
+  const area = $('resultadoArea');
+  const dadoHtml = (v,i,risco,mask) => `<span class="dado ${risco?'risco':''} ${!risco && mask && mask[i] ? 'anulado':''}">${v}</span>`;
+  let html = '<div class="dado-pool">';
+  html += `<div class="dado-col"><span class="dado-label">Ação</span><div class="dado-linha">${acaoValores.map((v,i)=>dadoHtml(v,i,false,res.anuladoMask)).join('')}</div></div>`;
+  if(riscoValores.length) html += `<div class="dado-col"><span class="dado-label">Risco</span><div class="dado-linha">${riscoValores.map((v,i)=>dadoHtml(v,i,true)).join('')}</div></div>`;
+  html += '</div>';
+  html += `<div class="resultado-txt">${res.nome}${res.ampliacoes?` <span class="ampliacoes">+${res.ampliacoes} Ampliação${res.ampliacoes>1?'ões':''}</span>`:''}</div>`;
+  if(S.token && !S.tokenUsadoNestaRolagem){
+    html += `<div class="token-ajuste">
+      <select id="tkDado"></select>
+      <select id="tkDelta"><option value="1">+1</option><option value="-1">−1</option></select>
+      <button class="mini noprint" onclick="usarTokenNaRolagem()">◈ Usar Token de Sorte</button>
+    </div>`;
+  }
+  area.innerHTML = html; area.style.display='block';
+  if(S.token && !S.tokenUsadoNestaRolagem){
+    const sel=$('tkDado');
+    acaoValores.forEach((v,i)=>sel.append(new Option(`Ação (${v})`, 'acao:'+i)));
+    riscoValores.forEach((v,i)=>sel.append(new Option(`Risco (${v})`, 'risco:'+i)));
+  }
+}
+function usarTokenNaRolagem(){
+  const [tipo, idxStr] = $('tkDado').value.split(':');
+  const idx = +idxStr;
+  const delta = +$('tkDelta').value;
+  const alvo = tipo==='acao' ? ultimaRolagem.acaoValores : ultimaRolagem.riscoValores;
+  alvo[idx] = Math.min(6, Math.max(1, alvo[idx]+delta));
+  S.token=false; S.tokenUsadoNestaRolagem=true; renderToken();
+  renderizarResultado();
 }
 
 /* =================== SALVAR / CARREGAR =================== */
@@ -546,7 +772,7 @@ function snapshot(){
   const grab=id=>[...$(id).querySelectorAll('select,input[type=text]')].map(e=>e.value);
   return {
     nome:$('f_nome').value, jogador:$('f_jogador').value, conceito:$('f_conceito').value,
-    nivel:$('f_nivel').value, xp:S.xp, vida:S.vida, fer:S.fer, token:S.token,
+    nivel:$('f_nivel').value, xp:S.xp, vida:S.vida, fer:S.fer, token:S.token, retrato:S.retrato,
     ferimentos:$('f_ferimentos').value, protecao:$('f_protecao').value,
     ancestral:$('f_ancestral').value, ancNotas:$('f_ancNotas').value,
     arq:$('f_arq').value, prof:$('f_prof').value,
@@ -574,13 +800,14 @@ function importJSON(ev){
 }
 function loadState(d){
   $('f_nome').value=d.nome||''; $('f_jogador').value=d.jogador||''; $('f_conceito').value=d.conceito||'';
-  $('f_nivel').value=d.nivel||'1'; S.xp=d.xp||0; S.vida=d.vida; S.fer=d.fer||0; S.token=(d.token!==false);
+  $('f_nivel').value=d.nivel||'1'; S.xp=d.xp||0; S.vida=d.vida??2; S.fer=d.fer||0; S.token=(d.token!==false);
+  S.retrato=d.retrato||null; S.tokenUsadoNestaRolagem=false;
   S.extraDef=d.extraDef||0; S.apr=d.apr||1; S.tra=d.tra||1;
   $('f_ferimentos').value=d.ferimentos||''; $('f_protecao').value=d.protecao||'';
   $('f_ancestral').value=d.ancestral||''; $('f_ancNotas').value=d.ancNotas||'';
   $('f_arq').value=d.arq||''; $('f_prof').value=d.prof||'';
   $('f_equip').value=d.equip||''; $('f_notas').value=d.notas||'';
-  rebuildSlots(); buildAnt(); buildXP(); buildFer(); buildVida(); renderAncestral(); renderToken();
+  rebuildSlots(); buildAnt(); buildXP(); buildFer(); buildVidaSelect(); renderAncestral(); renderToken(); applyRetrato();
   const put=(id,vals)=>{ const els=[...$(id).querySelectorAll('select,input[type=text]')];
     els.forEach((e,i)=>{ if(vals&&vals[i]!==undefined){ e.value=vals[i]; if(e.tagName==='SELECT') e.dispatchEvent(new Event('change')); }}); };
   put('qualidades',d.qualidades); put('defeitos',d.defeitos);
@@ -602,8 +829,10 @@ function resetAll(){ if(confirm('Limpar toda a ficha?')) location.reload(); }
   PROF.forEach((p,i)=>pf.append(new Option((i+1)+'. '+p,p)));
   pf.append(optCustom());
   pf.addEventListener('change',()=>{ refreshResumo(); });
-  S.xp=0; S.fer=0; S.token=true;
-  rebuildSlots(); buildAnt(); buildXP(); buildFer(); buildVida(); renderToken();
+  S.xp=0; S.fer=0; S.token=true; S.vida=2; S.tokenUsadoNestaRolagem=false;
+  initTabs();
+  buildVidaSelect();
+  rebuildSlots(); buildAnt(); buildXP(); buildFer(); renderToken(); applyRetrato();
   refreshResumo();
 })();
 </script>

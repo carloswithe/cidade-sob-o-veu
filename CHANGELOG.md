@@ -2,6 +2,15 @@
 
 Todas as mudanças notáveis deste sistema serão documentadas aqui.
 
+## [0.1.4] — 2026-07-15
+
+### Alterado
+- Redesenho completo da ficha de Personagem: zona fixa no topo (retrato maior e clicável, nome/conceito/jogador/nível, botão de Rolar em destaque), barra compacta de Estilo de Vida/XP/Token de Sorte, Trilha de Ferimentos mantida com destaque, e as seções de criação (Características, Ancestralidade, Arquétipo, Antecedente, Equipamento & Itens) viraram abas em vez de um scroll longo. Removidas as referências de capítulo e a "regra de ouro" do rodapé.
+- `reference/ficha-interativa.html` (a ficha standalone para os jogadores preencherem fora do Foundry) recebeu o mesmo redesenho, mais um upload de retrato funcional (prévia local, persiste no .json exportado) e um rolador de Ação vs. Risco completo — lista as Tags preenchidas como checkboxes, resolve anulação/Ampliações/Token de Sorte com a mesma lógica do sistema Foundry. Os botões de Salvar/Carregar/Imprimir/Limpar continuam os mesmos.
+
+### Corrigido
+- O retrato do Actor não abria o seletor de arquivos nas fichas de Personagem, Adversário e Lendário (o atributo `data-edit="img"` não é mais conectado automaticamente nas fichas ApplicationV2). Trocado por uma ação explícita que abre o `FilePicker`.
+
 ## [0.1.3] — 2026-07-15
 
 ### Alterado (experimental)

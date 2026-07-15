@@ -29,7 +29,7 @@ async function docDoPack(nomePack, id) {
 export default class ActorPersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static DEFAULT_OPTIONS = {
     classes: ["cidade-sob-o-veu", "sheet", "actor", "personagem"],
-    position: { width: 940, height: 900 },
+    position: { width: 880, height: 760 },
     window: { resizable: true, icon: "fa-solid fa-user" },
     form: { submitOnChange: true },
     actions: {
@@ -39,7 +39,6 @@ export default class ActorPersonagemSheet extends HandlebarsApplicationMixin(Act
       "recuperar-ferimento": ActorPersonagemSheet.#onRecuperarFerimento,
       "toggle-token": ActorPersonagemSheet.#onToggleToken,
       "set-xp": ActorPersonagemSheet.#onSetXP,
-      "set-estilo-vida": ActorPersonagemSheet.#onSetEstiloVida,
       "rolar-estilo-vida": ActorPersonagemSheet.#onRolarEstiloVida,
       "aplicar-ancestralidade": ActorPersonagemSheet.#onAplicarAncestralidade,
       "rolar-ancestralidade": ActorPersonagemSheet.#onRolarAncestralidade,
@@ -60,13 +59,18 @@ export default class ActorPersonagemSheet extends HandlebarsApplicationMixin(Act
       "add-mitem": ActorPersonagemSheet.#onAddMItem,
       "edit-item": ActorPersonagemSheet.#onEditItem,
       "delete-item": ActorPersonagemSheet.#onDeleteItem,
-      "toggle-ativa": ActorPersonagemSheet.#onToggleAtiva
+      "toggle-ativa": ActorPersonagemSheet.#onToggleAtiva,
+      "mudar-aba": ActorPersonagemSheet.#onMudarAba,
+      "edit-img": ActorPersonagemSheet.#onEditImg
     }
   };
 
   static PARTS = {
     form: { template: "systems/cidade-sob-o-veu/templates/actor/personagem-sheet.hbs" }
   };
+
+  /** Aba ativa das abas de criação — estado de UI, não faz parte dos dados do Actor. */
+  tabAtivo = "carac";
 
   async _prepareContext() {
     const actor = this.actor;
@@ -118,8 +122,24 @@ export default class ActorPersonagemSheet extends HandlebarsApplicationMixin(Act
       caracteristicasPositivas: listaCaracteristicas("positiva"),
       caracteristicasNegativas: listaCaracteristicas("negativa"),
       totalPositivas: tags.filter((t) => t.system.polaridade === "positiva" && t.system.ativa).length,
-      totalNegativas: tags.filter((t) => t.system.polaridade === "negativa" && t.system.ativa).length
+      totalNegativas: tags.filter((t) => t.system.polaridade === "negativa" && t.system.ativa).length,
+      tabAtivo: this.tabAtivo
     };
+  }
+
+  // ---------- Cabeçalho: abas, retrato ----------
+
+  static async #onMudarAba(event, target) {
+    this.tabAtivo = target.dataset.tab;
+    this.render();
+  }
+
+  static async #onEditImg() {
+    new FilePicker({
+      type: "image",
+      current: this.actor.img,
+      callback: (path) => this.actor.update({ img: path })
+    }).render(true);
   }
 
   // ---------- Rolagens ----------
@@ -168,10 +188,6 @@ export default class ActorPersonagemSheet extends HandlebarsApplicationMixin(Act
   }
 
   // ---------- Estilo de Vida ----------
-
-  static async #onSetEstiloVida(event, target) {
-    await this.actor.update({ "system.estiloDeVida": target.dataset.valor });
-  }
 
   static async #onRolarEstiloVida() {
     const roll = await new Roll("1d20").evaluate();

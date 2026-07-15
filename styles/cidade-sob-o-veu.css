@@ -60,6 +60,59 @@
 .cv-sub { font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: .24em; color: var(--cv-neon); text-transform: uppercase; margin: 4px 0 10px; }
 .cv-toolbar { display: flex; gap: 8px; flex: none; }
 
+/* ============ Zona fixa (ficha de Personagem) ============ */
+.cv-zona-fixa { border-bottom: 2px solid var(--cv-ritual); padding-bottom: 14px; margin-bottom: 4px; }
+.cv-topo { display: flex; gap: 18px; align-items: stretch; }
+
+.cv-retrato {
+  position: relative; width: 120px; height: 120px; flex: none; cursor: pointer;
+  border: 1px solid var(--cv-neon); background-color: var(--cv-concreto); background-size: cover; background-position: center;
+}
+.cv-retrato-overlay {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  background: rgba(11, 10, 16, 0); opacity: 0; transition: .15s;
+  font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; text-align: center; padding: 6px; color: var(--cv-veu);
+}
+.cv-retrato:hover .cv-retrato-overlay { background: rgba(11, 10, 16, .78); opacity: 1; }
+.cv-retrato-overlay svg { width: 20px; height: 20px; }
+.cv-retrato-corner { position: absolute; top: 5px; right: 5px; width: 8px; height: 8px; border-top: 2px solid var(--cv-neon); border-right: 2px solid var(--cv-neon); opacity: .7; }
+
+.cv-identidade { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; }
+.cv-campos-id { display: grid; grid-template-columns: 1.3fr 1.3fr .6fr; gap: 10px; }
+.cv-campo label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .1em; color: var(--cv-nevoa); text-transform: uppercase; display: block; margin-bottom: 3px; }
+
+.cv-rolar-cta {
+  flex: none; width: 130px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  background: linear-gradient(160deg, var(--cv-ritual), #2c1660); border: 1px solid var(--cv-neon); cursor: pointer; position: relative; overflow: hidden;
+}
+.cv-rolar-cta:hover { background: linear-gradient(160deg, var(--cv-neon), var(--cv-ritual)); }
+.cv-rolar-dado { font-size: 26px; filter: drop-shadow(0 0 8px rgba(139, 92, 246, .8)); }
+.cv-rolar-txt { font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--cv-veu); }
+.cv-rolar-sub { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: .06em; color: var(--cv-lilas); text-transform: uppercase; }
+
+.cv-vitals { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px solid #2c2638; }
+.cv-vital-grp { display: flex; align-items: center; gap: 7px; }
+.cv-vital-grp label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .1em; color: var(--cv-neon); text-transform: uppercase; white-space: nowrap; }
+.cv-vital-grp select { width: auto; min-width: 120px; }
+.cv-mini-roll { font-family: 'Space Mono', monospace; font-size: 9.5px; background: var(--cv-concreto); color: var(--cv-veu); border: 1px solid var(--cv-neon); padding: 4px 7px; cursor: pointer; line-height: 1; }
+.cv-mini-roll:hover { background: var(--cv-ritual); }
+.cv-vital-tags { margin-left: auto; }
+
+/* ============ Trilha de ferimentos (bloco fixo) ============ */
+.cv-bloco-fer { padding: 12px 0 14px; border-bottom: 1px solid #2c2638; margin-bottom: 4px; }
+.cv-fer-tit { font-family: 'Space Mono', monospace; font-size: 9.5px; letter-spacing: .14em; color: var(--cv-nevoa); text-transform: uppercase; margin-bottom: 8px; }
+
+/* ============ Abas ============ */
+.cv-tabs { display: flex; background: var(--cv-concreto2); border: 1px solid #38304a; border-bottom: none; overflow-x: auto; }
+.cv-tab {
+  font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+  color: var(--cv-nevoa); background: none; border: none; border-right: 1px solid #2c2638; padding: 10px 16px; cursor: pointer;
+}
+.cv-tab:hover { color: var(--cv-veu); background: rgba(139, 92, 246, .08); }
+.cv-tab.on { color: var(--cv-veu); background: var(--cv-ritual); }
+.cv-painel { display: none; border: 1px solid #38304a; border-top: none; background: rgba(28, 24, 36, .4); padding: 16px; }
+.cv-painel.on { display: block; }
+
 /* ============ Blocos ============ */
 .cv-bloco { border: 1px solid #38304a; margin-top: 16px; background: rgba(28, 24, 36, .55); }
 .cv-tit { background: var(--cv-ritual); padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }

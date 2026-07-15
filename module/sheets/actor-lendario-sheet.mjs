@@ -32,7 +32,8 @@ export default class ActorLendarioSheet extends HandlebarsApplicationMixin(Actor
       "delete-fraqueza": ActorLendarioSheet.#onDeleteFraqueza,
       "add-avanco": ActorLendarioSheet.#onAddAvanco,
       "delete-avanco": ActorLendarioSheet.#onDeleteAvanco,
-      "toggle-avanco": ActorLendarioSheet.#onToggleAvanco
+      "toggle-avanco": ActorLendarioSheet.#onToggleAvanco,
+      "edit-img": ActorLendarioSheet.#onEditImg
     }
   };
 
@@ -57,6 +58,14 @@ export default class ActorLendarioSheet extends HandlebarsApplicationMixin(Actor
 
   static async #onRolarLivre() {
     new CVRollDialog(this.actor).render(true);
+  }
+
+  static async #onEditImg() {
+    new FilePicker({
+      type: "image",
+      current: this.actor.img,
+      callback: (path) => this.actor.update({ img: path })
+    }).render(true);
   }
 
   static async #onAddFase() {
